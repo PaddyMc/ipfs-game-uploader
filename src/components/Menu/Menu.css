@@ -1,0 +1,31 @@
+.menucontainer {
+	margin: 0;
+	padding: 0;
+	width: 200px;
+	background-color: #f1f1f1;
+	height: 100%;
+	overflow: auto;
+}
+
+.menubar {
+	overflow: auto;
+	display: flex;
+	float: right;
+}
+
+.menubutton {
+	display: block;
+	color: black;
+	padding: 16px;
+	text-decoration: none;
+}
+
+.menubutton.active {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.menubutton:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
