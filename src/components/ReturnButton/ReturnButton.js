@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import './ReturnButton.css';
 
 class ReturnButton extends Component {
     constructor(props){
@@ -14,9 +13,9 @@ class ReturnButton extends Component {
     render() {
         return (
             <div className="">
-                <Button className="" onClick={() => this.onBackButtonPress()}>
+                <div className="returnbutton" onClick={() => this.onBackButtonPress()}>
                     ←
-                </Button>
+                </div>
             </div>
         );
     }

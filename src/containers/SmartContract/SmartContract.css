@@ -9,6 +9,12 @@
 
 .marginLeft {
     margin-left: 15% !important;
+    margin-right: 15% !important;
+}
+
+.smartcontract-action-button{
+    display: flex;
+    padding: 5px;
 }
 
 .tableText {

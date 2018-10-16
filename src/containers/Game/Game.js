@@ -14,7 +14,7 @@ class Game extends Component {
             <ReturnButton>{this.props}</ReturnButton>
                <h1 className="introText">{this.state.intro}</h1>
                <h2 className="introText">{this.state.welcomeText}</h2>
-               <iframe className="game" src="index1.html" name="Game name" scrolling="no" frameBorder="1" height="650px"></iframe>
+               <iframe className="game" src="index1.html" title={this.state.welcomeText} scrolling="no" frameBorder="1" height="650px"></iframe>
             </div>
         );
     }

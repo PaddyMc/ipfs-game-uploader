@@ -1,0 +1,19 @@
+.returnbutton {
+	display: block;
+	color: black;
+	padding: 16px;
+    text-decoration: none;
+    cursor: pointer;
+
+    width: 50px;
+}
+
+.returnbutton.active {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.returnbutton:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}

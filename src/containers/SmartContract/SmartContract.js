@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Form, Table, FormControl, FormGroup, Col, ControlLabel, HelpBlock, FieldGroup } from 'react-bootstrap';
+import { Button, Table} from 'react-bootstrap';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
 
 import './SmartContract.css';
@@ -59,11 +59,8 @@ class SmartContract extends Component {
         //obtain contract address from storehash.js
         const ethAddress = await storehash.options.address;
         this.setState({ethAddress});
-        //await ipfs.add(this.state.buffer, (err, ipfsHash) => {
-            //console.log(err,ipfsHash);
-            //ipfsHash[0].hash
-            let ipfsHash = {hash : "This is the ipfs hash"}
-            this.setState({ ipfsHash: ipfsHash.hash});
+        await ipfs.add(this.state.buffer, (err, ipfsHash) => {
+            this.setState({ ipfsHash: ipfsHash[0].hash});
             
             storehash.methods.sendHash(this.state.ipfsHash).send({
               from: accounts[0] 
@@ -71,7 +68,7 @@ class SmartContract extends Component {
               console.log(transactionHash);
               this.setState({transactionHash});
             });
-        //}) 
+        }) 
     }; 
     
     onSubmitBatch = async (event) => {
@@ -95,15 +92,6 @@ class SmartContract extends Component {
   }; 
 
 render() { 
-  function FieldGroup({ id, label, help, ...props }) {
-    return (
-      <FormGroup controlId={id}>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl {...props} />
-        {help && <HelpBlock>{help}</HelpBlock>}
-      </FormGroup>
-    );
-  }
     return (
       <div className="shape">
       <ReturnButton>{this.props}</ReturnButton>
@@ -112,26 +100,9 @@ render() {
         </header>
         
         <hr/>
-          <h3 className="introText">Choose file to send to IPFS.</h3>
+          <h3 className="">Choose file to send to IPFS.</h3>
           <div className="marginLeft">
-          <form onSubmit={this.onSubmit}>
-            {/* <Form horizontal>
-              <FormGroup controlId="formControlsFile">
-                <Col componentClass={ControlLabel} sm={2}>
-                  File
-                </Col>
-                <Col sm={10}>
-                  <FormControl type="file" placeholder="File" help="Example block-level help text here."/>
-                </Col>
-              </FormGroup>
-            </Form> */}
-                {/* <FieldGroup
-                  id="formControlsFile"
-                  type="file"
-                  label="File"
-                  help="Choose file to send to IPFS."
-                  onChange = {this.captureFile}
-                /> */}
+          <form className="smartcontract-action-button" onSubmit={this.onSubmit}>
             <input 
               type = "file"
               onChange = {this.captureFile}
@@ -142,15 +113,21 @@ render() {
             </Button>
           </form>
 
-          <form onSubmit={this.onSubmitBatch}>
+          <form className="smartcontract-action-button" onSubmit={this.onSubmitBatch}>
             <Button 
               type="submit"> 
               Send Batch 
             </Button>
           </form>
 
+          <form className="smartcontract-action-button">
+            <Button onClick = {this.onClick}>
+             Get Transaction Receipt 
+             </Button>
+          </form>
+          
           <hr/>
-          <Button onClick = {this.onClick}> Get Transaction Receipt </Button>
+          
           <Table striped bordered className="tableSize">
               <thead >
                 <tr>
@@ -184,6 +161,6 @@ render() {
           </div>
     </div>
     );
-    } //render
-} //App
+    } 
+}
 export default SmartContract;
