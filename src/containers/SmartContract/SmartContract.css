@@ -7,19 +7,11 @@
     width: 50% !important;
 }
 
-.marginLeft {
-    margin-left: 15% !important;
-    margin-right: 15% !important;
-}
-
 .smartcontract-action-button{
     display: flex;
     padding: 5px;
 }
 
-.tableText {
-    color:white;
-    text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
-              #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
-    -webkit-font-smoothing: antialiased
+.smartcontract-number-text {
+    margin-left: 20%
 }

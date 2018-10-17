@@ -13,10 +13,9 @@ class Game extends Component {
     loadAccounts = async () => {
         const accounts = await web3.eth.getAccounts();
         this.setState({account: accounts[0]})
-        console.log(this.state.account)
     }
 
-    componentDidMount = function () {
+    componentWillMount = function () {
         this.loadAccounts()
     }
 
@@ -33,8 +32,9 @@ class Game extends Component {
             <div className="shape">
             <ReturnButton>{this.props}</ReturnButton>
                <h1 className="introText">{this.state.intro}</h1>
-               <h2 className="introText">{this.state.welcomeText}</h2>
-               <h2 className="errorText">{this.renderContent()}</h2>
+               <hr/>
+               <h3 className="introText">{this.state.welcomeText}</h3>
+               <h3 className="errorText">{this.renderContent()}</h3>
             </div>
         );
     }

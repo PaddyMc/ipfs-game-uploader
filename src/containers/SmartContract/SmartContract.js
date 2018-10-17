@@ -9,27 +9,37 @@ import storehash from '../../services/SmartContract/storehash';
 
 class SmartContract extends Component {
     state = {
-      ipfsHash:null,
-      buffer:'',
+      intro: "Game Uploader",
+      welcomeText: "Choose folder to send to IPFS; the folder must contain a runnable index.html",
+      ipfsHash: null,
+      files:[],
       ethAddress:'',
       blockNumber:'',
       transactionHash:'',
       gasUsed:'',
-      txReceipt: ''   
+      txReceipt: '',
+      numberOfHashes: 0   
     };
+
+    componentWillMount = function () {
+      this.getHash()
+  }
 
     captureFile =(event) => {
         event.stopPropagation()
         event.preventDefault()
-        const file = event.target.files[0]
-        let reader = new window.FileReader()
-        reader.readAsArrayBuffer(file)
-        reader.onloadend = () => this.convertToBuffer(reader)    
+
+        for (let file of event.target.files) {
+          //console.log(file)
+          let reader = new window.FileReader()
+          reader.readAsArrayBuffer(file)
+          reader.onloadend = () => this.convertToBuffer(reader, file.webkitRelativePath)   
+        }
       };
 
-    convertToBuffer = async(reader) => {
+    convertToBuffer = async(reader, folderPath) => {
       const buffer = await Buffer.from(reader.result);
-      this.setState({buffer});
+      this.state.files.push({path : folderPath, content : buffer})
     };
 
     onClick = async () => {
@@ -49,7 +59,7 @@ class SmartContract extends Component {
         catch(error){
             console.log(error);
         } 
-    } 
+    }
 
     onSubmit = async (event) => {
         event.preventDefault();
@@ -59,17 +69,26 @@ class SmartContract extends Component {
         //obtain contract address from storehash.js
         const ethAddress = await storehash.options.address;
         this.setState({ethAddress});
-        await ipfs.add(this.state.buffer, (err, ipfsHash) => {
-            this.setState({ ipfsHash: ipfsHash[0].hash});
+        await ipfs.add(this.state.files, (err, ipfsHash) => {
+            if (err) throw err
+            this.setState({ ipfsHash: ipfsHash[ipfsHash.length-1].hash});
             
-            storehash.methods.sendHash(this.state.ipfsHash).send({
+            storehash.methods.upload(this.state.ipfsHash).send({
               from: accounts[0] 
             }, (error, transactionHash) => {
-              console.log(transactionHash);
               this.setState({transactionHash});
             });
         }) 
     }; 
+
+    getHash = async () => {
+      const accounts = await web3.eth.getAccounts();
+      storehash.methods.getNumberOfHashes().call({
+        from: accounts[0] 
+      }, (error, numberOfHashesEth) => {
+        this.setState({numberOfHashes: numberOfHashesEth});
+      });
+    };
     
     onSubmitBatch = async (event) => {
       event.preventDefault();
@@ -96,20 +115,23 @@ render() {
       <div className="shape">
       <ReturnButton>{this.props}</ReturnButton>
         <header >
-          <h1 className="introText"> Ethereum and IPFS</h1>
+          <h1 className="introText">{this.state.intro}</h1>
         </header>
         
         <hr/>
-          <h3 className="">Choose file to send to IPFS.</h3>
+          <h3 className="">{this.state.welcomeText}</h3>
           <div className="marginLeft">
           <form className="smartcontract-action-button" onSubmit={this.onSubmit}>
             <input 
+              name = "Submit Folder"
               type = "file"
               onChange = {this.captureFile}
+              webkitdirectory="" 
+              directory=""
             />
             <Button 
               type="submit"> 
-              Send it 
+              Upload Game to IPFS
             </Button>
           </form>
 
@@ -125,6 +147,14 @@ render() {
              Get Transaction Receipt 
              </Button>
           </form>
+
+          <form className="smartcontract-action-button">
+            <Button onClick = {this.getHash}>
+              Get Hash 
+             </Button>
+             <div className="smartcontract-number-text">Number of Uploads: {this.state.numberOfHashes}</div>
+          </form>
+
           
           <hr/>
           

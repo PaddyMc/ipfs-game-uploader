@@ -1,8 +1,24 @@
 .game {
-	display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-
+    display: block;
+    width: 100%;
 	border: 3px solid #f1f1f1;
+}
+
+.game-input {
+    width: 100%;
+    margin-left: 15%;
+}
+
+.game-text-element {
+    display: table;
+    padding: 5px;
+}
+
+.game-action-button{
+    display: flex;
+    padding: 5px;
+}
+
+.game-action-container{
+    display: flex;
 }
