@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
+import Helmet from 'react-helmet';
+
 import web3 from '../../services/SmartContract/web3';
 import ipfs from '../../services/ipfs';
 import storehash from '../../services/SmartContract/storehash';
@@ -68,9 +70,12 @@ class Game extends Component {
           });
     }
 
+    ////"postbuild": "react-snap",
+
     render() {
         return (
             <div className="shape">
+            <Helmet title={this.state.intro} />
                 <ReturnButton>{this.props}</ReturnButton>
                 <div className="">
                     <h1>{this.state.intro}</h1>

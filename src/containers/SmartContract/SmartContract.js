@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Table} from 'react-bootstrap';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
+import Helmet from 'react-helmet';
 
 import './SmartContract.css';
 import web3 from '../../services/SmartContract/web3';
@@ -63,23 +64,43 @@ class SmartContract extends Component {
 
     onSubmit = async (event) => {
         event.preventDefault();
-        const accounts = await web3.eth.getAccounts();
+        // let chunkedFiles = this.state.files.reduce((resultArray, item, index) => { 
+        //   const chunkIndex = Math.floor(index/3)
+        
+        //   if(!resultArray[chunkIndex]) {
+        //     resultArray[chunkIndex] = []
+        //   }
+        
+        //   resultArray[chunkIndex].push(item)
+        
+        //   return resultArray
+        // }, [])
+        // console.log(chunkedFiles)
 
-        console.log('Sending from Metamask account: ' + accounts[0]);
-        //obtain contract address from storehash.js
-        const ethAddress = await storehash.options.address;
-        this.setState({ethAddress});
-        await ipfs.add(this.state.files, (err, ipfsHash) => {
-            if (err) throw err
-            this.setState({ ipfsHash: ipfsHash[ipfsHash.length-1].hash});
-            
-            storehash.methods.upload(this.state.ipfsHash).send({
-              from: accounts[0] 
-            }, (error, transactionHash) => {
-              this.setState({transactionHash});
-            });
-        }) 
+        // for (let file of chunkedFiles) {
+        //   this.uploadToIPFS(file)
+        // }
+        this.uploadToIPFS(this.state.files)
     }; 
+
+    uploadToIPFS = async (files) => {
+      const accounts = await web3.eth.getAccounts();
+      const ethAddress = await storehash.options.address;
+      this.setState({ethAddress});
+
+      console.log('Sending from Metamask account: ' + accounts[0]);
+      // console.log(ipfs.types)
+      await ipfs.add(files, (err, ipfsHash) => {
+          if (err) { throw err }
+          this.setState({ ipfsHash: ipfsHash[ipfsHash.length-1].hash});
+
+          storehash.methods.upload(this.state.ipfsHash).send({
+            from: accounts[0] 
+          }, (error, transactionHash) => {
+            this.setState({transactionHash});
+          });
+      }) 
+    }
 
     getHash = async () => {
       const accounts = await web3.eth.getAccounts();
@@ -101,9 +122,9 @@ class SmartContract extends Component {
       this.setState({ethAddress});
       var batch = new web3.BatchRequest();
       console.log(batch.requestManager);
-      batch.add(storehash.methods.sendHash(this.state.ipfsHash).send.request({from: accounts[0], gas: 400000}, (error, transactionHash) => {this.setState({transactionHash});}));
-      batch.add(storehash.methods.sendHash(this.state.ipfsHash).send.request({from: accounts[0], gas: 1000}, (error, transactionHash) => {this.setState({transactionHash});}));
-      batch.add(storehash.methods.sendHash(this.state.ipfsHash).send.request({from: accounts[0], gas: 300000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(storehash.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 400000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(storehash.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 1000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(storehash.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 300000}, (error, transactionHash) => {this.setState({transactionHash});}));
       console.log(batch.requests);
       //batch.add(storehash.methods.sendHash(this.state.ipfsHash).send({from: accounts[0], gas: 400000}));
       batch.execute();
@@ -113,6 +134,7 @@ class SmartContract extends Component {
 render() { 
     return (
       <div className="shape">
+      <Helmet title={this.state.intro} />
       <ReturnButton>{this.props}</ReturnButton>
         <header >
           <h1 className="introText">{this.state.intro}</h1>

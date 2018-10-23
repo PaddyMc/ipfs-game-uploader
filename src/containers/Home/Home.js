@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
+import Helmet from 'react-helmet';
 import web3 from '../../services/SmartContract/web3';
 import './Home.css';
 
@@ -30,6 +31,7 @@ class Game extends Component {
     render() {
         return (
             <div className="shape">
+            <Helmet title={this.state.intro} />
             <ReturnButton>{this.props}</ReturnButton>
                <h1 className="introText">{this.state.intro}</h1>
                <hr/>
