@@ -6,7 +6,7 @@ import Helmet from 'react-helmet';
 import './SmartContract.css';
 import web3 from '../../services/SmartContract/web3';
 import ipfs from '../../services/ipfs';
-import storehash from '../../services/SmartContract/storehash';
+import gametracker from '../../services/SmartContract/gametracker';
 
 class SmartContract extends Component {
     state = {
@@ -85,7 +85,7 @@ class SmartContract extends Component {
 
     uploadToIPFS = async (files) => {
       const accounts = await web3.eth.getAccounts();
-      const ethAddress = await storehash.options.address;
+      const ethAddress = await gametracker.options.address;
       this.setState({ethAddress});
 
       console.log('Sending from Metamask account: ' + accounts[0]);
@@ -94,7 +94,7 @@ class SmartContract extends Component {
           if (err) { throw err }
           this.setState({ ipfsHash: ipfsHash[ipfsHash.length-1].hash});
 
-          storehash.methods.upload(this.state.ipfsHash).send({
+          gametracker.methods.upload(this.state.ipfsHash).send({
             from: accounts[0] 
           }, (error, transactionHash) => {
             this.setState({transactionHash});
@@ -104,7 +104,7 @@ class SmartContract extends Component {
 
     getHash = async () => {
       const accounts = await web3.eth.getAccounts();
-      storehash.methods.getNumberOfHashes().call({
+      gametracker.methods.getNumberOfHashes().call({
         from: accounts[0] 
       }, (error, numberOfHashesEth) => {
         this.setState({numberOfHashes: numberOfHashesEth});
@@ -116,17 +116,17 @@ class SmartContract extends Component {
       const accounts = await web3.eth.getAccounts();
 
       console.log('Sending from Metamask account: ' + accounts[0]);
-      const ethAddress = await storehash.options.address;
+      const ethAddress = await gametracker.options.address;
       let ipfsHash = {hash : "This is the ipfs hash"}
       this.setState({ ipfsHash: ipfsHash.hash});
       this.setState({ethAddress});
       var batch = new web3.BatchRequest();
       console.log(batch.requestManager);
-      batch.add(storehash.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 400000}, (error, transactionHash) => {this.setState({transactionHash});}));
-      batch.add(storehash.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 1000}, (error, transactionHash) => {this.setState({transactionHash});}));
-      batch.add(storehash.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 300000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(gametracker.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 400000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(gametracker.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 1000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(gametracker.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 300000}, (error, transactionHash) => {this.setState({transactionHash});}));
       console.log(batch.requests);
-      //batch.add(storehash.methods.sendHash(this.state.ipfsHash).send({from: accounts[0], gas: 400000}));
+      //batch.add(gametracker.methods.sendHash(this.state.ipfsHash).send({from: accounts[0], gas: 400000}));
       batch.execute();
 
   }; 

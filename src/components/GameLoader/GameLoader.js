@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import web3 from '../../services/SmartContract/web3';
 import ipfs from '../../services/ipfs';
-import storehash from '../../services/SmartContract/storehash';
+import gametracker from '../../services/SmartContract/gametracker';
 
 class GameLoader extends Component {
     state = {
@@ -33,7 +33,7 @@ class GameLoader extends Component {
 
     getTotalHashes = async () => {
         const accounts = await web3.eth.getAccounts();
-        storehash.methods.getNumberOfHashes().call({
+        gametracker.methods.getNumberOfHashes().call({
             from: accounts[0] 
           }, (error, numberOfHashes) => {
             this.setState({numberOfGames : numberOfHashes})
@@ -45,21 +45,18 @@ class GameLoader extends Component {
     getAllHashes = async (account) => {
         for(let i = 0; i < this.state.numberOfGames; i++){
             let gameHash;
-            storehash.methods.getHashByNum(i).call({
+            gametracker.methods.getHashByNum(i).call({
                 from: account
             }, (error, ipfsHashFromSmartContract) => {
                 gameHash = ipfsHashFromSmartContract
                 this.getOwnerForGame(account, i, gameHash)
             });
-            
         }
-        
-        
     }
 
     getOwnerForGame = async (account, position, gameHash) => {
         let descriptionText = 0
-        storehash.methods.getOwnerForGame(position).call({
+        gametracker.methods.getOwnerForGame(position).call({
             from: account 
         }, (error, gameOwner) => {
             let description = this.getDescription(gameHash)
@@ -67,7 +64,7 @@ class GameLoader extends Component {
                 descriptionText = data ?  Buffer.from(data[0].content) : 0
             }).catch(() => {
                 
-            }).finally(()=>{
+            }).finally(() => {
                 this.state.allGames.push({
                     gameHash : gameHash, 
                     gameOwner : gameOwner, 
@@ -85,8 +82,8 @@ class GameLoader extends Component {
 
         let promises = []
         for(let i = 0; i < this.state.numberOfGames; i++){
-            promises.push(storehash.methods.getHashByNum(i).call({from: account}))
-            promises.push(storehash.methods.getOwnerForGame(i).call({from: account}))
+            promises.push(gametracker.methods.getHashByNum(i).call({from: account}))
+            promises.push(gametracker.methods.getOwnerForGame(i).call({from: account}))
         }
 
         Promise.all(promises).then((data) => {

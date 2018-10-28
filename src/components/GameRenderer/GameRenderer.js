@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import web3 from '../../services/SmartContract/web3';
 import './GameRenderer.css';
 
 class GameRenderer extends Component {
     constructor(props){
         super(props)
-        console.log(this.props.location.state)
         this.state = {
             index: "index.html",
             ipfsHash: this.props.location.state.gameHash,
@@ -15,10 +15,24 @@ class GameRenderer extends Component {
         }
     }
 
-    tipUploader = (event) => {
-        // web3.send eth function
+    componentDidMount = function () {
+        console.log(this.props)
+        if(!this.state.ipfsHash){
+        }
+    }
+
+    tipUploader = async (event) => {
         event.preventDefault()
-        console.log("Money")
+        // web3.send eth function
+        let accounts = await web3.eth.getAccounts();
+        let tip = 100000000000000000;
+        web3.eth.sendTransaction({
+            to: this.state.gameOwner,
+            from: accounts[0],
+            value: tip
+        }, (err, data) => {
+            console.log(data)
+        });
     }
 
     render() {
@@ -30,7 +44,7 @@ class GameRenderer extends Component {
                     <form className="gamerenderer-button" onSubmit={this.tipUploader}>
                         <Button 
                             type="submit"> 
-                            Tip Uploader
+                            Fund Game Uploader
                         </Button>
                     </form>
                 </div>
