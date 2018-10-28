@@ -1,0 +1,9 @@
+.gameloader-container {
+    display: flex;
+}
+
+.gameloader-infoText {
+    text-align: left;
+    width: 20%;
+    padding: 5px;
+}

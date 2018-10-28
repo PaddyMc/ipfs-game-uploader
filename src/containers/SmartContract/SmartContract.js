@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Table} from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
 import Helmet from 'react-helmet';
 
@@ -11,7 +11,7 @@ import storehash from '../../services/SmartContract/storehash';
 class SmartContract extends Component {
     state = {
       intro: "Game Uploader",
-      welcomeText: "Choose folder to send to IPFS; the folder must contain a runnable index.html",
+      welcomeText: "Choose folder to send to IPFS; the folder must contain a runnable index.html & description.txt",
       ipfsHash: null,
       files:[],
       ethAddress:'',
