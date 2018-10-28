@@ -8,10 +8,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Helmet title="1" />
+        <Helmet title="Game Uploader" />
         <Router>
             <Menu />
-            
         </Router>
       </div>
     );
