@@ -22,9 +22,9 @@ class SmartContract extends Component {
       numberOfHashes: 0   
     };
 
-    componentWillMount = function () {
+    componentWillMount = () => {
       this.getHash()
-  }
+    }
 
     captureFile =(event) => {
         event.stopPropagation()
@@ -50,7 +50,6 @@ class SmartContract extends Component {
             this.setState({gasUsed:"waiting..."});
 
             await web3.eth.getTransactionReceipt(this.state.transactionHash, (err, txReceipt)=>{
-                console.log(err,txReceipt);
                 this.setState({txReceipt});
             }); 
 
@@ -64,22 +63,6 @@ class SmartContract extends Component {
 
     onSubmit = async (event) => {
         event.preventDefault();
-        // let chunkedFiles = this.state.files.reduce((resultArray, item, index) => { 
-        //   const chunkIndex = Math.floor(index/3)
-        
-        //   if(!resultArray[chunkIndex]) {
-        //     resultArray[chunkIndex] = []
-        //   }
-        
-        //   resultArray[chunkIndex].push(item)
-        
-        //   return resultArray
-        // }, [])
-        // console.log(chunkedFiles)
-
-        // for (let file of chunkedFiles) {
-        //   this.uploadToIPFS(file)
-        // }
         this.uploadToIPFS(this.state.files)
     }; 
 

@@ -13,7 +13,7 @@ class GameLoader extends Component {
         loaded: false
     };
 
-    componentWillMount = function () {
+    componentWillMount = () => {
         this.getTotalHashes()
     }
 
@@ -35,59 +35,51 @@ class GameLoader extends Component {
         const accounts = await web3.eth.getAccounts();
         gametracker.methods.getNumberOfHashes().call({
             from: accounts[0] 
-          }, (error, numberOfHashes) => {
+        }, (error, numberOfHashes) => {
             this.setState({numberOfGames : numberOfHashes})
-            this.getAllHashes(accounts[0])
             this.getAllInfoByPosition(accounts[0])
-          });
-    }
-
-    getAllHashes = async (account) => {
-        for(let i = 0; i < this.state.numberOfGames; i++){
-            let gameHash;
-            gametracker.methods.getHashByNum(i).call({
-                from: account
-            }, (error, ipfsHashFromSmartContract) => {
-                gameHash = ipfsHashFromSmartContract
-                this.getOwnerForGame(account, i, gameHash)
-            });
-        }
-    }
-
-    getOwnerForGame = async (account, position, gameHash) => {
-        let descriptionText = 0
-        gametracker.methods.getOwnerForGame(position).call({
-            from: account 
-        }, (error, gameOwner) => {
-            let description = this.getDescription(gameHash)
-            description.then((data) => {
-                descriptionText = data ?  Buffer.from(data[0].content) : 0
-            }).catch(() => {
-                
-            }).finally(() => {
-                this.state.allGames.push({
-                    gameHash : gameHash, 
-                    gameOwner : gameOwner, 
-                    description : descriptionText.toString()
-                })
-                if(this.state.allGames.length == this.state.numberOfGames){
-                    this.setState({loaded: true})
-                }
-            })
         });
     }
 
     getAllInfoByPosition = (account) => {
-        // ToDo: Use promises.all to batch calls
-
         let promises = []
         for(let i = 0; i < this.state.numberOfGames; i++){
-            promises.push(gametracker.methods.getHashByNum(i).call({from: account}))
-            promises.push(gametracker.methods.getOwnerForGame(i).call({from: account}))
+            promises.push(gametracker.methods.getHashByNum(i).call({
+                from: account
+            }))
+            promises.push(gametracker.methods.getOwnerForGame(i).call({
+                from: account
+            }))
         }
 
         Promise.all(promises).then((data) => {
-            console.log(data)
+            for(let i = 2; i < data.length + 1; i++){
+                if(i % 2 === 0) {
+                    this.state.allGames.push({
+                        number : i / 2,
+                        gameHash : data[i-2], 
+                        gameOwner : data[i-1], 
+                    })
+                    this.getDescriptionData(data[i-2], i / 2)
+                    //this.getImageData(data[i-2], i / 2)
+                }
+            }
+        })
+    }
+
+    getDescriptionData = (gameHash, position) => {
+        let descriptionText = 0
+        let description = this.getDescription(gameHash)
+        description.then((data) => {
+            descriptionText = data ?  Buffer.from(data[0].content) : "None"
+        }).catch((err) => {
+            console.log("err")
+        }).finally(() => {
+            this.state.allGames[position-1].description = descriptionText.toString()
+
+            if(position === Number(this.state.numberOfGames)){
+                this.setState({loaded: true})
+            }
         })
     }
 
@@ -97,8 +89,9 @@ class GameLoader extends Component {
                 {
                     this.state.loaded ? (
                         <div>
-                            <div className="game-text-element">Number of Games: {this.state.numberOfGames}</div>
-                            
+                            <div className="game-text-element">
+                                Number of Games: {this.state.numberOfGames}
+                            </div>
                             <hr/>
                             <div>
                             {
@@ -106,8 +99,14 @@ class GameLoader extends Component {
                                     let output = 
                                     <div key={index}>
                                         <div className="gameloader-container">
+                                            <div className="gameloader-infoText">Number:</div>
+                                            <div>{game.number}</div>
+                                        </div>
+                                        <div className="gameloader-container">
                                             <div className="gameloader-infoText">Location:</div>
-                                            <Link to={ { pathname: `${'game'}/${game.gameHash}`, state: game } }>{game.gameHash}</Link>
+                                            <Link to={ { pathname: `${'game'}/${game.gameHash}`, state: game } }>
+                                                {game.gameHash}
+                                            </Link>
                                         </div>
                                         <div className="gameloader-container">
                                             <div className="gameloader-infoText">Owner:</div>

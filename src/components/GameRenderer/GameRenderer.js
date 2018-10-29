@@ -11,12 +11,13 @@ class GameRenderer extends Component {
             ipfsHash: this.props.location.state.gameHash,
             gameOwner: this.props.location.state.gameOwner,
             description: this.props.location.state.description,
+            //url: "http://localhost:8080/ipfs/"
             url: "https://ipfs.infura.io/ipfs/",
         }
     }
 
     componentDidMount = function () {
-        console.log(this.props)
+        //console.log(this.props)
         if(!this.state.ipfsHash){
         }
     }

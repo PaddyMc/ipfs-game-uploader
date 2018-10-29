@@ -16,27 +16,29 @@ class Game extends Component {
         this.setState({account: accounts[0]})
     }
 
-    componentWillMount = function () {
+    componentWillMount = () => {
         this.loadAccounts()
     }
 
-    renderContent = function () {
-        if(this.state.account) {
-            return this.state.account
-        } else {
-            return "Install Metamask, Use Rinkbey"
-        }
+    renderContent = () => {
+        return this.state.account ? this.state.account : "Install Metamask, Use Rinkbey"
     }
 
     render() {
         return (
             <div className="shape">
-            <Helmet title={this.state.intro} />
-            <ReturnButton>{this.props}</ReturnButton>
-               <h1 className="introText">{this.state.intro}</h1>
-               <hr/>
-               <h3 className="introText">{this.state.welcomeText}</h3>
-               <h3 className="errorText">{this.renderContent()}</h3>
+                <Helmet title={this.state.intro} />
+                <ReturnButton>{this.props}</ReturnButton>
+                <h1 className="introText">
+                    {this.state.intro}
+                </h1>
+                <hr/>
+                <h3 className="introText">
+                    {this.state.welcomeText}
+                </h3>
+                <h3 className="errorText">
+                    {this.renderContent()}
+                </h3>
             </div>
         );
     }
