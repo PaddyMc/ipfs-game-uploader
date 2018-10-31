@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import web3 from '../../services/SmartContract/web3';
 import { Types } from '@requestnetwork/request-network.js';
 import requestNetwork from '../../services/requestnetwork';
+import gametracker from '../../services/SmartContract/gametracker';
 import './GameRenderer.css';
 
 class GameRenderer extends Component {
@@ -10,6 +11,7 @@ class GameRenderer extends Component {
         super(props)
         this.state = {
             index: "index.html",
+            number: this.props.location.state.number,
             ipfsHash: this.props.location.state.gameHash,
             gameOwner: this.props.location.state.gameOwner,
             description: this.props.location.state.description,
@@ -28,38 +30,63 @@ class GameRenderer extends Component {
     loadAccounts = async () => {
         let loadedAccounts = await web3.eth.getAccounts();
         this.setState({accounts:loadedAccounts})
+        const [account] = this.state.accounts;
+        
+        gametracker.methods.getAccountForGame(this.state.number-1).call({
+            from: loadedAccounts[0],
+        }, (err, data) => {
+            //console.log(err)
+            console.log(data)
+        });
+
+        gametracker.methods.getTotalAmountFunded().call({
+            from: loadedAccounts[0],
+        }, (err, data) => {
+            //console.log(err)
+            console.log(data)
+        });
+
+        gametracker.methods.getNumberOfFunders().call({
+            from: loadedAccounts[0],
+        }, (err, data) => {
+            //console.log(err)
+            console.log(data)
+        });
     }
 
     tipUploader = async (event) => {
         event.preventDefault()
         // web3.send eth function
         const [account] = this.state.accounts;
-        let tip = 100000000000000000;
-        web3.eth.sendTransaction({
-            to: this.state.gameOwner,
+        console.log(account)
+        gametracker.methods.fundGameOwner(this.state.number-1).send({
             from: account,
-            value: tip
+            value: web3.utils.toWei('0.1', "ether")
         }, (err, data) => {
+            console.log(err)
             console.log(data)
         });
     }
 
     sendRequestToBuy = async (event) => {
         event.preventDefault()
-        let tip = 100000000000000000;
         //web3.utils.toWei('1.5', 'ether')
         const [payeeAddress] = this.state.accounts;
         const payerAddress = this.state.gameOwner;
+
+        console.log(payeeAddress, payerAddress)
 
         const payerInfo = {
             idAddress: payerAddress,
             refundAddress: payerAddress,
         };
+
         const payeesInfo = [{
             idAddress: payeeAddress,
             paymentAddress: payeeAddress,
-            expectedAmount: web3.utils.toWei('1', 'ether'),
+            expectedAmount: web3.utils.toWei('0.1', 'ether'),
         }];
+
         const { request } = await requestNetwork.createRequest(
             Types.Role.Payee,
             Types.Currency.ETH,
@@ -67,7 +94,7 @@ class GameRenderer extends Component {
             payerInfo,
         );
         // Pay a request
-        await request.pay([web3.utils.toWei('1', 'ether')], [0], { from: payerAddress });
+        await request.pay([web3.utils.toWei('0.1', 'ether')], [0], { from: payerAddress });
         // The balance is the same amount as the the expected amount: the request is paid
         const data = await request.getData();
         console.log(data.payee.expectedAmount.toString());

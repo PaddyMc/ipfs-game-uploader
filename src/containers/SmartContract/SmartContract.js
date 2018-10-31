@@ -26,7 +26,7 @@ class SmartContract extends Component {
       this.getHash()
     }
 
-    captureFile =(event) => {
+    captureFile = (event) => {
         event.stopPropagation()
         event.preventDefault()
 
@@ -105,9 +105,9 @@ class SmartContract extends Component {
       this.setState({ethAddress});
       var batch = new web3.BatchRequest();
       console.log(batch.requestManager);
-      batch.add(gametracker.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 400000}, (error, transactionHash) => {this.setState({transactionHash});}));
-      batch.add(gametracker.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 1000}, (error, transactionHash) => {this.setState({transactionHash});}));
-      batch.add(gametracker.methods.upload(this.state.ipfsHash).send.request({from: accounts[0], gas: 300000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(gametracker.methods.upload(this.state.ipfsHash, '0x04').send.request({from: accounts[0], gas: 400000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(gametracker.methods.upload(this.state.ipfsHash, '0x04').send.request({from: accounts[0], gas: 1000}, (error, transactionHash) => {this.setState({transactionHash});}));
+      batch.add(gametracker.methods.upload(this.state.ipfsHash, '0x04').send.request({from: accounts[0], gas: 300000}, (error, transactionHash) => {this.setState({transactionHash});}));
       console.log(batch.requests);
       //batch.add(gametracker.methods.sendHash(this.state.ipfsHash).send({from: accounts[0], gas: 400000}));
       batch.execute();
