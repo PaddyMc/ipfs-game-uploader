@@ -19,49 +19,76 @@ class GameRenderer extends Component {
             url: "https://ipfs.infura.io/ipfs/",
             accounts: [],
         }
+        
     }
 
     componentDidMount = function () {
         if(!this.state.ipfsHash){
         }
-        this.loadAccounts()
+
     }
 
-    loadAccounts = async () => {
-        let loadedAccounts = await web3.eth.getAccounts();
-        this.setState({accounts:loadedAccounts})
-        const [account] = this.state.accounts;
+    getAmountFunded = async (event) => {
+        event.preventDefault()
+        const [accounts] = await web3.eth.getAccounts();
+        //const gameAccount = await gametracker.methods.getAccountForGame(0).call()
         
-        gametracker.methods.getAccountForGame(this.state.number-1).call({
-            from: loadedAccounts[0],
+        gametracker.methods.getTotalAmountFunded().call({
+            from: accounts,
         }, (err, data) => {
             //console.log(err)
-            console.log(data)
+            console.log("Total Amount Funded", data)
         });
 
-        gametracker.methods.getTotalAmountFunded().call({
-            from: loadedAccounts[0],
+        gametracker.methods.getTopFunder().call({
+            from: accounts,
         }, (err, data) => {
             //console.log(err)
-            console.log(data)
+            console.log("Top funder", data)
         });
 
         gametracker.methods.getNumberOfFunders().call({
-            from: loadedAccounts[0],
+            from: accounts,
         }, (err, data) => {
             //console.log(err)
-            console.log(data)
+            console.log("Number of Funders", data)
+        });
+
+        gametracker.methods.getAccountForGame(this.state.number-1).call({
+            from: accounts,
+        }, (err, data) => {
+            let decodedName = web3.utils.hexToString(data[0])
+            console.log(data[1])
+            console.log(decodedName)
         });
     }
 
-    tipUploader = async (event) => {
+    fundUploader = async (event) => {
         event.preventDefault()
-        // web3.send eth function
-        const [account] = this.state.accounts;
-        console.log(account)
+
+        const [account] = await web3.eth.getAccounts();
+
+        // var event = gametracker.events.UpdatedBalance({from: loadedAccounts});
+        // event.subscribe((err, result) => { 
+        //     if (err) {
+        //         console.log(err)
+        //         return;
+        //     }
+        //     console.log(result)
+        // });
+
+        var eventETHDeposited = gametracker.events.ETHDeposited({from: account});
+        eventETHDeposited.subscribe((err, result) => { 
+            if (err) {
+                return;
+            }
+            //console.log(web3.utils.toWei('0.2', "ether"))
+            console.log(result)
+        });
+
         gametracker.methods.fundGameOwner(this.state.number-1).send({
             from: account,
-            value: web3.utils.toWei('0.1', "ether")
+            value: web3.utils.toWei('0.2', "ether")
         }, (err, data) => {
             console.log(err)
             console.log(data)
@@ -70,8 +97,7 @@ class GameRenderer extends Component {
 
     sendRequestToBuy = async (event) => {
         event.preventDefault()
-        //web3.utils.toWei('1.5', 'ether')
-        const [payeeAddress] = this.state.accounts;
+        const [payeeAddress] = await web3.eth.getAccounts();
         const payerAddress = this.state.gameOwner;
 
         console.log(payeeAddress, payerAddress)
@@ -122,10 +148,16 @@ class GameRenderer extends Component {
                 <div className="gameloader-container">
                     <div className="gameloader-infoText">Game Owner:</div>
                     <div>{this.state.gameOwner}</div>
-                    <form className="gamerenderer-button" onSubmit={this.tipUploader}>
+                    <form className="gamerenderer-button" onSubmit={this.fundUploader}>
                         <Button 
                             type="submit"> 
                             Fund Game Uploader
+                        </Button>
+                    </form>
+                    <form className="gamerenderer-button" onSubmit={this.getAmountFunded}>
+                        <Button 
+                            type="submit"> 
+                            Get Amount Funded
                         </Button>
                     </form>
                     <form className="gamerenderer-button" onSubmit={this.sendRequestToBuy}>

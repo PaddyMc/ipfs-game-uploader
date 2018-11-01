@@ -1,7 +1,9 @@
 import web3 from './web3';
 //0x7462cd6f63cc2ba43a663f515525e52fc1337a19
-//'0xe27fcc33409308a83e2aeaf0b117c5f53d14107e';
-const address = '0x573e7a796470898a134c1ffb5b900598c76cc85d'
+//0xe27fcc33409308a83e2aeaf0b117c5f53d14107e
+//0x573e7a796470898a134c1ffb5b900598c76cc85d
+//0xcb4f7ceb474af71679c3c4381a682aa6c0ff9839
+const address = '0x9ea41ba4c902014e703b26d95701168bbeaed6c5'
 
 const abi = [
 	{
@@ -64,12 +66,7 @@ const abi = [
 			}
 		],
 		"name": "upload",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"

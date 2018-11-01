@@ -67,7 +67,7 @@ class GameLoader extends Component {
         })
     }
 
-    getDescriptionData = (gameHash, position) => {
+    getDescriptionData = async (gameHash, position) => {
         let descriptionText = 0
         let description = this.getDescription(gameHash)
         description.then((data) => {

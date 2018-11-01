@@ -77,7 +77,7 @@ class SmartContract extends Component {
           if (err) { throw err }
           this.setState({ ipfsHash: ipfsHash[ipfsHash.length-1].hash});
 
-          gametracker.methods.upload(this.state.ipfsHash, '0x04').send({
+          gametracker.methods.upload(this.state.ipfsHash, web3.utils.toHex('Hope')).send({
             from: accounts[0] 
           }, (error, transactionHash) => {
             this.setState({transactionHash});
