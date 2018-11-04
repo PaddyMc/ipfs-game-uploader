@@ -9,21 +9,36 @@ import './GameRenderer.css';
 class GameRenderer extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            index: "index.html",
-            number: this.props.location.state.number,
-            ipfsHash: this.props.location.state.gameHash,
-            gameOwner: this.props.location.state.gameOwner,
-            description: this.props.location.state.description,
-            //url: "http://localhost:8080/ipfs/"
-            url: "https://ipfs.infura.io/ipfs/",
-            accounts: [],
+        if(this.props.location.state){
+            this.state = {
+                index: "index.html",
+                number: this.props.location.state.number,
+                ipfsHash: this.props.location.state.gameHash,
+                gameOwner: this.props.location.state.gameOwner,
+                description: this.props.location.state.description,
+                //url: "http://localhost:8080/ipfs/"
+                url: "https://ipfs.infura.io/ipfs/",
+                accounts: [],
+            }
+        } else {
+            this.state = {
+                index: "index.html",
+                number: "this.props.location.state.number",
+                ipfsHash: "this.props.location.state.gameHash",
+                gameOwner: "this.props.location.state.gameOwner",
+                description: "this.props.location.state.description",
+                //url: "http://localhost:8080/ipfs/"
+                url: "https://ipfs.infura.io/ipfs/",
+                accounts: [],
+            }
         }
         
     }
+    
 
     componentDidMount = function () {
         if(!this.state.ipfsHash){
+            console.log("reload")
         }
 
     }

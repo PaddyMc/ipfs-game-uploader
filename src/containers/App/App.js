@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Menu from '../../components/Menu/Menu';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import Helmet from 'react-helmet';
 
 class App extends Component {

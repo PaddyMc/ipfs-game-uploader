@@ -1,4 +1,5 @@
 <h1>Indie game uploader</h1>
+<p>Fully decentralized application!</p>
 <p>Uploads a game to IPFS and stores the location on the Ethereum network</p>
 
 <h2>Upload rules</h2>
@@ -24,5 +25,15 @@
     </li>
     <li>
         npm start
+    </li>
+</ul>
+
+<h2>To upload productive fully decentralized app</h2>
+<ul>
+    <li>
+        npm run build
+    </li>
+    <li>
+        npm run ipfs
     </li>
 </ul>

@@ -104,7 +104,7 @@ class GameLoader extends Component {
                                         </div>
                                         <div className="gameloader-container">
                                             <div className="gameloader-infoText">Location:</div>
-                                            <Link to={ { pathname: `${'game'}/${game.gameHash}`, state: game } }>
+                                            <Link to={ { pathname: `/game/${game.gameHash}`, state: game } }>
                                                 {game.gameHash}
                                             </Link>
                                         </div>

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
-import GameLoader from '../../components/GameLoader/GameLoader';
-import GameRenderer from '../../components/GameRenderer/GameRenderer';
 import Helmet from 'react-helmet';
-import { Route } from 'react-router-dom'
-import { BrowserRouter as Router } from 'react-router-dom'
 
 import './Game.css';
 
@@ -43,12 +39,6 @@ class Game extends Component {
                 </div>
                <hr/>
                <h3 className="">{this.state.welcomeText}</h3>
-               <Router>
-                    <div>
-                        <Route exact path="/game" component={GameLoader}/>
-                        <Route exact path="/game/:ipfsHash" component={GameRenderer}/>
-                    </div>
-               </Router>
             </div>
         );
     }

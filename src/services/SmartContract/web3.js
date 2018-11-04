@@ -18,6 +18,7 @@ else if (window.web3) {
     }
 }
 else {
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
 }
 

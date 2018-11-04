@@ -28,7 +28,8 @@
     "snap": "react-snap",
     "prod": "set PORT=80 && serve -s build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ipfs": "node scripts/upload-to-ipfs.js"
   },
   "eslintConfig": {
     "extends": "react-app"
