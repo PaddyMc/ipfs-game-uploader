@@ -35,7 +35,6 @@ class GameRenderer extends Component {
         
     }
     
-
     componentDidMount = function () {
         if(!this.state.ipfsHash){
             console.log("reload")

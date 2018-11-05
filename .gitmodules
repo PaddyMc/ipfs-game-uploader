@@ -1,0 +1,3 @@
+[submodule "smartcontract"]
+	path = smartcontract
+	url = https://github.com/PaddyMc/game-tracker.git
