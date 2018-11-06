@@ -19,16 +19,19 @@
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "set PORT=3000 && react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
+    "ganache": "ganache-cli",
+    "deploy:smartcontract": "node test/utils/smartcontract-utils.js",
+    "test:mocha": "mocha --bail -t 500000",
+    "test:dev": "npm-run-all deploy:smartcontract test:mocha",
+    "test:serve": "set PORT=3000 && serve -s build",
+    "test:build" : "npm-run-all build test:serve",
+    "test:setup:run": "parallelshell \"npm run ganache\" \"npm run deploy:smartcontract\" \"sleep 10 && npm run test:build\" \"sleep 45 && npm run test:mocha\"",
+    "test": "npm run test:setup:run",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "snap": "react-snap",
-    "prod": "set PORT=80 && serve -s build",
-    "test:mocha": "mocha --bail --recursive -t 500000",
-    "test": "npm-run-all test:mocha",
-    "eject": "react-scripts eject",
     "ipfs": "node scripts/upload-to-ipfs.js",
-    "sleepy": "sleep 5"
+    "deploy": "npm-run-all build ipfs"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,10 +45,16 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chromedriver": "^2.43.1",
+    "ganache-cli": "^6.1.8",
+    "ganache-core": "^2.2.1",
     "geckodriver": "^1.12.2",
     "mocha": "^5.2.0",
     "node-sass-chokidar": "^1.3.4",
     "npm-run-all": "^4.1.3",
-    "selenium-webdriver": "^4.0.0-alpha.1"
+    "parallelshell": "^3.0.2",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "serve": "^10.0.2",
+    "shell-parallel": "^1.0.3",
+    "solc": "^0.4.25"
   }
 }

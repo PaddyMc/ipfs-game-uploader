@@ -5,6 +5,8 @@
 
 /testUpload
 
+/.vscode
+
 # testing
 /coverage
 

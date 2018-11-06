@@ -36,7 +36,7 @@ uploadToIPFS = () => {
 	})
 	.then(() => {
 		console.log(`published at http://localhost:8080/ipns/${id} and
-	https://ipfs.io/ipns/${id}`);
+	https://gateway.ipfs.io/ipns/${id}`);
 	})
 	.catch((err) => {
 		console.log('error caught', err);
