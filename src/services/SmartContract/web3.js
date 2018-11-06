@@ -22,4 +22,4 @@ else {
     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
 }
 
-export default web3;
+export default web3

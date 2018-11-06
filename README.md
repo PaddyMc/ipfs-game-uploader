@@ -1,7 +1,7 @@
 <h1>Indie game uploader</h1>
 <p>Fully decentralized application!</p>
 <p>Uploads a game to IPFS and stores the location on the Ethereum network</p>
-
+<hr/>
 <h2>Upload rules</h2>
 <ul>
     <li>
@@ -17,7 +17,7 @@
         Folder must contain a image in image.png
     </li>
 </ul>
-
+<hr/>
 <h2>To run</h2>
 <ul>
     <li>
@@ -27,13 +27,43 @@
         npm start
     </li>
 </ul>
-
-<h2>To upload productive fully decentralized app</h2>
+<hr/>
+<h2>To test</h2>
 <ul>
     <li>
-        npm run build
-    </li>
-    <li>
-        npm run ipfs
+        npm test
     </li>
 </ul>
+<hr/>
+<p>While writing tests, it's best to;</p>
+<p>In separate terminals:</p>
+<ul>
+    <li>
+        npm run ganache
+    </li>
+    <li>
+        npm run start
+    </li>
+    <li>
+        npm run test:dev
+    </li>
+</ul>
+<hr/>
+<h2>To upload productive fully decentralized app</h2>
+<p>Start ipfs with 'ipfs daemon --enable-pubsub-experiment'</p>
+<p>Run:</p>
+<ul>
+    <li>
+        npm run deploy
+    </li>
+</ul>
+<hr/>
+<h2>Beware of dragons</h2>
+<p>If the tests fail, replace the TEST varible in src/constants/constants.js with null</p>
+<p>Always use "" for strings in src/constants/constants.js</p>
+<hr/>
+<h2>Tips</h2>
+<p>List all ports</p>
+<p>netstat -a -o -n</p>
+<p>Kill ports in use</p>
+<p>kill pid</p>
