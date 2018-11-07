@@ -59,7 +59,7 @@
 </ul>
 <hr/>
 <h2>Beware of dragons</h2>
-<p>If the tests fail, replace the TEST varible in src/constants/constants.js with null</p>
+<p>If the tests fail, replace the TEST variable in src/constants/constants.js with null</p>
 <p>Always use "" for strings in src/constants/constants.js</p>
 <hr/>
 <h2>Tips</h2>
