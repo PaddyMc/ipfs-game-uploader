@@ -6,13 +6,13 @@ const Web3 = require('web3');
 
 // var Ganache = require("ganache-core");
 // var server = Ganache.server();
-// server.listen(7545, function(err, blockchain) {
+// server.listen(8545, (err, blockchain) => {
 //   if(err) { console.log(err) }
 // });
 // const web3 = new Web3(Ganache.provider())
 
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+// console.log(web3.eth.accounts.wallet)
 findImports = (path) => {
   switch (path) {
     case ( "lib/math.sol" ):
@@ -34,23 +34,6 @@ findImports = (path) => {
   }
 }
 
-uploadGame = (accounts, abi, address) => {
-  const gametracker = new web3.eth.Contract(JSON.parse(abi), address);
-  gametracker.methods.upload("QmPXgPCzbdviCVJTJxvYCWtMuRWCKRfNRVcSpARHDKFShd", web3.utils.toHex('Hope')).send({
-    from: accounts[0],
-    gas: 1060982
-  }, (error, transactionHash) => {
-    if (error) { throw(error) }
-    console.log(transactionHash);
-  });
-}
-
-updateSmartContractInWebUI = async (address) => {
-  let constants = await fs.readFileSync('./src/constants/constants.js', 'utf8')
-  let updated = constants.replace("null", `'${address}'`);
-  fs.writeFileSync('./src/constants/constants.js', updated, 'utf8');
-}
-
 deploySmartContract = async () => {
   const accounts = await web3.eth.getAccounts();
 
@@ -62,8 +45,7 @@ deploySmartContract = async () => {
   const abi = compiledContract.contracts['GameTracker.sol:GameTracker'].interface;
   const bytecode = `0x${compiledContract.contracts['GameTracker.sol:GameTracker'].bytecode}`;
   const gasEstimate = await web3.eth.estimateGas({data: bytecode});
-
-  const gametracker =  new web3.eth.Contract(JSON.parse(abi))
+  const gametracker = new web3.eth.Contract(JSON.parse(abi))
 
   const contract = gametracker.deploy({
     data: bytecode
@@ -85,17 +67,47 @@ deploySmartContract = async () => {
     .on('receipt', (receipt) => {
       uploadGame(accounts, abi, receipt.contractAddress)
       updateSmartContractInWebUI(receipt.contractAddress)
-    })
+  })
 }
 
-deploySmartContract()
+uploadGame = (accounts, abi, address) => {
+  const gametracker = new web3.eth.Contract(JSON.parse(abi), address);
+  gametracker.methods.upload("QmPXgPCzbdviCVJTJxvYCWtMuRWCKRfNRVcSpARHDKFShd", web3.utils.toHex('Hope')).send({
+    from: accounts[0],
+    gas: 1060982
+  }, (error, transactionHash) => {
+    if (error) { throw(error) }
+    //console.log(transactionHash);
+  });
+}
+
+updateSmartContractInWebUI = async (address) => {
+  let constants = await fs.readFileSync('./src/constants/constants.js', 'utf8')
+  let updated = constants.replace("null", `'${address}'`);
+  fs.writeFileSync('./src/constants/constants.js', updated, 'utf8');
+}
+
+createAccountAndSendEth = async () => {
+  const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+  const accounts = await web3.eth.getAccounts();
+  const { address, privateKey } = await web3.eth.accounts.create();
+
+  web3.eth.sendTransaction({
+    to: address,
+    from: accounts[1],
+    value: web3.utils.toWei('5', 'ether')
+  }, (err, data) => {
+    console.log(err)
+    console.log("sent funds")
+    console.log(data)
+  });
+
+  return privateKey
+}
 
 module.exports = {
   deploySmartContract,
+  createAccountAndSendEth
 }
 
-// No problem at all @bdresser .
-
-// Thanks for the feedback, I'll update the PR in a few days.
-
-// How did you find the spacing between the navigation container and the network container?
+deploySmartContract()
