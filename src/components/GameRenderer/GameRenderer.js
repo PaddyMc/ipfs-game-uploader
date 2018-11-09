@@ -35,11 +35,10 @@ class GameRenderer extends Component {
         
     }
     
-    componentDidMount = function () {
+    componentDidMount = () => {
         if(!this.state.ipfsHash){
             console.log("reload")
         }
-
     }
 
     getAmountFunded = async (event) => {

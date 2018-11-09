@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReturnButton from '../../components/ReturnButton/ReturnButton';
+import GameLoader from '../../components/GameLoader/GameLoader';
 import Helmet from 'react-helmet';
 
 import './Game.css';

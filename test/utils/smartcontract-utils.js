@@ -35,6 +35,7 @@ findImports = (path) => {
 }
 
 deploySmartContract = async () => {
+  console.log("deploying SC")
   const accounts = await web3.eth.getAccounts();
 
   const input = {
@@ -97,7 +98,6 @@ createAccountAndSendEth = async () => {
     from: accounts[1],
     value: web3.utils.toWei('5', 'ether')
   }, (err, data) => {
-    console.log(err)
     console.log("sent funds")
     console.log(data)
   });
@@ -109,5 +109,3 @@ module.exports = {
   deploySmartContract,
   createAccountAndSendEth
 }
-
-deploySmartContract()
