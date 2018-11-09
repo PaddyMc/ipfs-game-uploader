@@ -60,7 +60,7 @@ describe('Run e2e tests', () => {
 
     it("Checks menu buttons", async () => {
       let menuButtons = await findElements(driver, By.css('.menubutton'))
-      assert.equal(menuButtons.length, 4, "four menu buttons")
+      assert.equal(menuButtons.length, 5, "four menu buttons")
     });
 
     it("Moves through app and verify headers", async () => {
