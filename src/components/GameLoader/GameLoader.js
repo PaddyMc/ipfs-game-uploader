@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './GameLoader.css';
-import { Link } from 'react-router-dom';
 
 import web3 from '../../services/SmartContract/web3';
 import ipfs from '../../services/ipfs';
 import gametracker from '../../services/SmartContract/gametracker';
+
+import GameDetails from './GameDetails/GameDetails'
 
 class GameLoader extends Component {
     state = {
@@ -93,35 +94,7 @@ class GameLoader extends Component {
                                 Number of Games: {this.state.numberOfGames}
                             </div>
                             <hr/>
-                            <div>
-                            {
-                                this.state.allGames.map((game, index) => {
-                                    let output = 
-                                    <div className="gameloader-info-container" key={index}>
-                                        <div className="gameloader-container">
-                                            <div className="gameloader-infoText">Number:</div>
-                                            <div>{game.number}</div>
-                                        </div>
-                                        <div className="gameloader-container">
-                                            <div className="gameloader-infoText">Location:</div>
-                                            <Link className="gameloader-link" to={ { pathname: `/game/${game.gameHash}`, state: game } }>
-                                                {game.gameHash}
-                                            </Link>
-                                        </div>
-                                        <div className="gameloader-container">
-                                            <div className="gameloader-infoText">Owner:</div>
-                                            <div>{game.gameOwner}</div>
-                                        </div>
-                                        <div className="gameloader-container">
-                                            <div className="gameloader-infoText">Description:</div>
-                                            <div>{game.description}</div>
-                                        </div>
-                                        <hr/>
-                                    </div>
-                                    return output
-                                })
-                            }
-                            </div>
+                            <GameDetails allGames={this.state.allGames} />
                         </div>
                     ) : (<div>Loading....</div>)
                 }

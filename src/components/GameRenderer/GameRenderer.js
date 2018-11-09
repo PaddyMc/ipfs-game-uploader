@@ -19,60 +19,37 @@ class GameRenderer extends Component {
                 //url: "http://localhost:8080/ipfs/"
                 url: "https://ipfs.infura.io/ipfs/",
                 accounts: [],
+                gameFundingData: "10000",
             }
         } else {
             this.state = {
                 index: "index.html",
                 number: "this.props.location.state.number",
-                ipfsHash: "this.props.location.state.gameHash",
+                ipfsHash: null,
                 gameOwner: "this.props.location.state.gameOwner",
                 description: "this.props.location.state.description",
                 //url: "http://localhost:8080/ipfs/"
                 url: "https://ipfs.infura.io/ipfs/",
                 accounts: [],
+                gameFundingData: "10000",
             }
         }
         
     }
     
-    componentDidMount = () => {
-        if(!this.state.ipfsHash){
-            console.log("reload")
-        }
+    componentWillMount = () => {
+        this.state.ipfsHash ? this.getAmountFunded() : console.log("reload")
     }
 
-    getAmountFunded = async (event) => {
-        event.preventDefault()
+    getAmountFunded = async () => {
         const [accounts] = await web3.eth.getAccounts();
         //const gameAccount = await gametracker.methods.getAccountForGame(0).call()
-        
-        gametracker.methods.getTotalAmountFunded().call({
-            from: accounts,
-        }, (err, data) => {
-            //console.log(err)
-            console.log("Total Amount Funded", data)
-        });
-
-        gametracker.methods.getTopFunder().call({
-            from: accounts,
-        }, (err, data) => {
-            //console.log(err)
-            console.log("Top funder", data)
-        });
-
-        gametracker.methods.getNumberOfFunders().call({
-            from: accounts,
-        }, (err, data) => {
-            //console.log(err)
-            console.log("Number of Funders", data)
-        });
 
         gametracker.methods.getAccountForGame(this.state.number-1).call({
             from: accounts,
         }, (err, data) => {
             let decodedName = web3.utils.hexToString(data[0])
-            console.log(data[1])
-            console.log(decodedName)
+            this.setState({gameFundingData : data[1]})
         });
     }
 
@@ -167,12 +144,6 @@ class GameRenderer extends Component {
                             Fund Game Uploader
                         </Button>
                     </form>
-                    <form className="gamerenderer-button" onSubmit={this.getAmountFunded}>
-                        <Button 
-                            type="submit"> 
-                            Get Amount Funded
-                        </Button>
-                    </form>
                     <form className="gamerenderer-button" onSubmit={this.sendRequestToBuy}>
                         <Button 
                             type="submit"> 
@@ -183,6 +154,10 @@ class GameRenderer extends Component {
                 <div className="gameloader-container">
                     <div className="gameloader-infoText">Description:</div>
                     <div>{this.state.description}</div>
+                </div>
+                <div className="gameloader-container">
+                    <div className="gameloader-infoText">Total Amount Funded:</div>
+                    <div>{web3.utils.fromWei(this.state.gameFundingData.toString() , "ether")} Eth</div>
                 </div>
                 <iframe className="game" src={`${this.state.url}/${this.state.ipfsHash}/${this.state.index}`} title={this.state.welcomeText} scrolling="no" frameBorder="1" height="650px"></iframe>
             </div>
