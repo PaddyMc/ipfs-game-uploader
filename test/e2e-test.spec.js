@@ -8,7 +8,7 @@ const firefox = require('selenium-webdriver/firefox')
 
 const fs = require("fs")
 const { By, until } = webdriver
-const { createAccountAndSendEth, deploySmartContract } = require('./utils/smartcontract-utils')
+const { createAccountAndSendEth } = require('./utils/smartcontract-utils')
 const { setUpMetaMask } = require('./utils/metamask-utils')
 const {
   delay,
@@ -93,7 +93,47 @@ describe('Run e2e tests', () => {
       await delay(smallDelay)
       let menuButtons = await findElements(driver, By.css('.menubutton'))
       await menuButtons[1].click()
-      assert.ok(true)
+    });
+
+    it("Verifies there is one game", async () => {
+      let gameInfoContainers = await findElements(driver, By.css('.gameloader-info-container'))
+      assert.equal(gameInfoContainers.length, 1, "incorrect amount of games in smartcontract")
+    });
+    
+    it("Clicks game link and verifies game rendered", async () => {
+      await delay(smallDelay)
+      let link = await findElement(driver, By.css('.gameloader-link'))
+      await link.click()
+      let gameContainer = await findElement(driver, By.css('.game'))
+
+      await assert.ok(gameContainer, "did not change page")
+    });
+
+    it("Funds a game owner", async () => {
+      await delay(smallDelay)
+      let button = await findElement(driver, By.xpath("//button[contains(text(), 'Fund Game Uploader')]"))
+      await button.click()
+      await delay(smallDelay * 4)
+      let windows = await driver.getAllWindowHandles()
+      const extension = windows[1]
+      await driver.switchTo().window(extension)
+      await delay(smallDelay)
+      button = await findElement(driver, By.xpath("//button[contains(text(), 'Confirm')]"))
+      await button.click()
+      windows = await driver.getAllWindowHandles()
+      const dApp = windows[0]
+      await driver.switchTo().window(dApp)
+      await delay(smallDelay)
+
+      // Verifies amount uploaded
+    });
+
+    it("Returns to game link", async () => {
+      await delay(smallDelay)
+      let returnButton = await findElement(driver, By.css('.returnbutton'))
+      await returnButton.click()
+
+      // varify return is clicked
     });
   });
 

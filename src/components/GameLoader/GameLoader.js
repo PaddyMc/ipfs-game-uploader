@@ -97,14 +97,14 @@ class GameLoader extends Component {
                             {
                                 this.state.allGames.map((game, index) => {
                                     let output = 
-                                    <div key={index}>
+                                    <div className="gameloader-info-container" key={index}>
                                         <div className="gameloader-container">
                                             <div className="gameloader-infoText">Number:</div>
                                             <div>{game.number}</div>
                                         </div>
                                         <div className="gameloader-container">
                                             <div className="gameloader-infoText">Location:</div>
-                                            <Link to={ { pathname: `/game/${game.gameHash}`, state: game } }>
+                                            <Link className="gameloader-link" to={ { pathname: `/game/${game.gameHash}`, state: game } }>
                                                 {game.gameHash}
                                             </Link>
                                         </div>
