@@ -1,5 +1,6 @@
 <h1>Indie game uploader</h1>
-<p>Fully decentralized application!</p>
+<p>Fully decentralized application</p>
+<p>'Pure' DApp</p>
 <p>Uploads a game to IPFS and stores the location on the Ethereum network</p>
 <hr/>
 <h2>Upload rules</h2>
@@ -61,6 +62,7 @@
 <h2>Beware of dragons</h2>
 <p>If the tests fail, replace the TEST variable in src/constants/constants.js with null</p>
 <p>Always use "" for strings in src/constants/constants.js</p>
+<p>Update submodules with 'git submodule update --recursive --remote'</p>
 <hr/>
 <h2>Tips</h2>
 <p>List all ports</p>

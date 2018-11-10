@@ -11,25 +11,6 @@ class Game extends Component {
         welcomeText: "Select a location and play a game",
     };
 
-    componentWillMount = function () {
-        //this.getTotalHashes()
-    }
-
-    getGame = (event) => {
-        event.preventDefault();
-        let input = Number(event.currentTarget.children[0].value)
-        if(input <= this.state.numberOfGames && input > 0){
-            this.getGameByNumber(event.currentTarget.children[0].value-1)
-        }
-        else{
-            console.log("Tut tut tut...")
-        }
-    }
-
-    getLatestGame = () => {
-        this.getGameByNumber(this.state.numberOfGames-1);
-    }
-
     render() {
         return (
             <div className="shape">
@@ -40,6 +21,7 @@ class Game extends Component {
                 </div>
                <hr/>
                <h3 className="">{this.state.welcomeText}</h3>
+               {/* <GameLoader /> */}
             </div>
         );
     }

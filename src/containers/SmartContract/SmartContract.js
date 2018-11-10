@@ -38,7 +38,7 @@ class SmartContract extends Component {
         }
       };
 
-    convertToBuffer = async(reader, folderPath) => {
+    convertToBuffer = async (reader, folderPath) => {
       const buffer = await Buffer.from(reader.result);
       this.state.files.push({path : folderPath, content : buffer})
     };

@@ -63,7 +63,7 @@ class FunderDetails extends Component {
                 <div className="funderDetailsHeader fullSize">
                   <div className="halfSize">
                     <h4>Number Of Funders</h4>
-                    <div>{this.state.numberOfFunders}</div>
+                    <div className="topFunderText">{this.state.numberOfFunders}</div>
                   </div>
                   <div  className="halfSize">
                     <h4>Total Amount Funded</h4>
