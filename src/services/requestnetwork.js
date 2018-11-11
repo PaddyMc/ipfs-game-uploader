@@ -1,4 +1,4 @@
-import web3 from './SmartContract/web3';
+import web3 from './contract-utils/web3';
 import RequestNetwork from '@requestnetwork/request-network.js';
 
 const requestNetwork = new RequestNetwork({

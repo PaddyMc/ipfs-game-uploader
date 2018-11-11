@@ -1,168 +1,76 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import web3 from '../../services/SmartContract/web3';
-import { Types } from '@requestnetwork/request-network.js';
-import requestNetwork from '../../services/requestnetwork';
-import gametracker from '../../services/SmartContract/gametracker';
 import './GameRenderer.css';
 
+import GameIFrame from './GameIFrame/GameIFrame'
+import GameActions from './GameActions/GameActions'
+import GameInfo from './GameInfo/GameInfo'
+
 class GameRenderer extends Component {
-    constructor(props){
-        super(props)
-        if(this.props.location.state){
-            this.state = {
-                index: "index.html",
-                number: this.props.location.state.number,
-                ipfsHash: this.props.location.state.gameHash,
-                gameOwner: this.props.location.state.gameOwner,
-                description: this.props.location.state.description,
-                //url: "http://localhost:8080/ipfs/"
-                url: "https://ipfs.infura.io/ipfs/",
-                accounts: [],
-                gameFundingData: "10000",
-            }
-        } else {
-            this.state = {
-                index: "index.html",
-                number: "this.props.location.state.number",
-                ipfsHash: null,
-                gameOwner: "this.props.location.state.gameOwner",
-                description: "this.props.location.state.description",
-                //url: "http://localhost:8080/ipfs/"
-                url: "https://ipfs.infura.io/ipfs/",
-                accounts: [],
-                gameFundingData: "10000",
-            }
-        }
-        
+  constructor(props){
+    super(props)
+    if(this.props.location.state){
+      this.state = {
+        number: this.props.location.state.number,
+        ipfsHash: this.props.location.state.gameHash,
+        gameOwner: this.props.location.state.gameOwner,
+        description: this.props.location.state.description,
+        fundUploader: this.props.location.state.fundUploader,
+        sendRequestToBuy: this.props.location.state.sendRequestToBuy,
+        getAmountFunded: this.props.location.state.getAmountFunded,
+        url: "https://ipfs.infura.io/ipfs/",
+        index: "index.html",
+        gameFundingData: "0",
+      }
+    } else {
+      this.state = {
+        number: null,
+        ipfsHash: null,
+        gameOwner: null,
+        description: null,
+        fundUploader: null,
+        sendRequestToBuy: null,
+        getAmountFunded: null,
+        url: "https://ipfs.infura.io/ipfs/",
+        index: "index.html",
+        gameFundingData: "0",
+      }
     }
-    
-    componentWillMount = () => {
-        this.state.ipfsHash ? this.getAmountFunded() : console.log("reload")
+  }
+  
+  componentWillMount = async () => {
+    if(this.state.getAmountFunded){
+      let amountFunded = await this.state.getAmountFunded(this.state.number - 1)
+      this.setState({gameFundingData : amountFunded[1]})
     }
+  }
 
-    getAmountFunded = async () => {
-        const [accounts] = await web3.eth.getAccounts();
-        //const gameAccount = await gametracker.methods.getAccountForGame(0).call()
-
-        gametracker.methods.getAccountForGame(this.state.number-1).call({
-            from: accounts,
-        }, (err, data) => {
-            let decodedName = web3.utils.hexToString(data[0])
-            this.setState({gameFundingData : data[1]})
-        });
-    }
-
-    fundUploader = async (event) => {
-        event.preventDefault()
-
-        const [account] = await web3.eth.getAccounts();
-
-        // var event = gametracker.events.UpdatedBalance({from: loadedAccounts});
-        // event.subscribe((err, result) => { 
-        //     if (err) {
-        //         console.log(err)
-        //         return;
-        //     }
-        //     console.log(result)
-        // });
-
-        var eventETHDeposited = gametracker.events.ETHDeposited({from: account});
-        eventETHDeposited.subscribe((err, result) => { 
-            if (err) {
-                return;
-            }
-            //console.log(web3.utils.toWei('0.2', "ether"))
-            console.log(result)
-        });
-
-        gametracker.methods.fundGameOwner(this.state.number-1).send({
-            from: account,
-            value: web3.utils.toWei('0.2', "ether")
-        }, (err, data) => {
-            console.log(err)
-            console.log(data)
-        });
-    }
-
-    sendRequestToBuy = async (event) => {
-        event.preventDefault()
-        const [payeeAddress] = await web3.eth.getAccounts();
-        const payerAddress = this.state.gameOwner;
-
-        console.log(payeeAddress, payerAddress)
-
-        const payerInfo = {
-            idAddress: payerAddress,
-            refundAddress: payerAddress,
-        };
-
-        const payeesInfo = [{
-            idAddress: payeeAddress,
-            paymentAddress: payeeAddress,
-            expectedAmount: web3.utils.toWei('0.1', 'ether'),
-        }];
-
-        const { request } = await requestNetwork.createRequest(
-            Types.Role.Payee,
-            Types.Currency.ETH,
-            payeesInfo,
-            payerInfo,
-        );
-        // Pay a request
-        await request.pay([web3.utils.toWei('0.1', 'ether')], [0], { from: payerAddress });
-        // The balance is the same amount as the the expected amount: the request is paid
-        const data = await request.getData();
-        console.log(data.payee.expectedAmount.toString());
-        console.log(data.payee.balance.toString());
-
-        // const { request } = await requestNetwork.createRequest(
-        //     Types.Role.Payee,
-        //     Types.Currency.ETH,
-        //     [{
-        //         idAddress: '0xc157274276a4e59974cca11b590b9447b26a8051',
-        //         paymentAddress: '0xc157274276a4e59974cca11b590b9447b26a8051',
-        //         additional: 5,
-        //         expectedAmount: 100,
-        //     }],
-        //     {
-        //         idAddress: '0x014fcc05c76687456e569561ae9956c0ec0ec223',
-        //         refundAddress: '0x014fcc05c76687456e569561ae9956c0ec0ec223',
-        //     }
-        // );
-    }
-
-    render() {
-        return (
-            <div className="">
-                <div className="gameloader-container">
-                    <div className="gameloader-infoText">Game Owner:</div>
-                    <div>{this.state.gameOwner}</div>
-                    <form className="gamerenderer-button" onSubmit={this.fundUploader}>
-                        <Button 
-                            type="submit"> 
-                            Fund Game Uploader
-                        </Button>
-                    </form>
-                    <form className="gamerenderer-button" onSubmit={this.sendRequestToBuy}>
-                        <Button 
-                            type="submit"> 
-                            Request To Buy
-                        </Button>
-                    </form>
-                </div>
-                <div className="gameloader-container">
-                    <div className="gameloader-infoText">Description:</div>
-                    <div>{this.state.description}</div>
-                </div>
-                <div className="gameloader-container">
-                    <div className="gameloader-infoText">Total Amount Funded:</div>
-                    <div>{web3.utils.fromWei(this.state.gameFundingData.toString() , "ether")} Eth</div>
-                </div>
-                <iframe className="game" src={`${this.state.url}/${this.state.ipfsHash}/${this.state.index}`} title={this.state.welcomeText} scrolling="no" frameBorder="1" height="650px"></iframe>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div className="gamerenderer-actions">
+          <div className="gamerenderer-spacer">
+            <GameInfo 
+              gameOwner={this.state.gameOwner}
+              description={this.state.description}
+              gameFundingData={this.state.gameFundingData}
+            />
+          </div>
+          <div>
+            <GameActions 
+              gameOwner={this.state.gameOwner}
+              gameNumber={this.state.number}
+              fundUploader={this.state.fundUploader}
+              sendRequestToBuy={this.state.sendRequestToBuy}
+            />
+          </div>
+        </div>
+        <GameIFrame 
+          location={`${this.state.url}/${this.state.ipfsHash}/${this.state.index}`} 
+          title={this.state.welcomeText} 
+        />
+      </div>
+    );
+  }
 }
 
 export default GameRenderer;

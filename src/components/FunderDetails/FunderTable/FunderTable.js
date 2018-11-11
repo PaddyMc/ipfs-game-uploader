@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 import './FunderTable.css';
-import web3 from '../../../services/SmartContract/web3';
+import Web3 from 'web3';
 
 class FunderTable extends Component {
     render() {
         return (
             <div>
+              <p>{this.props.header}</p>
               <Table className="tableSize">
               <thead >
                 <tr>
@@ -21,8 +22,9 @@ class FunderTable extends Component {
                   let output = 
                     <tr key={index}>
                       <td>{funder[0]}</td>
-                      {/* {web3.utils.fromWei(funder[1] , "ether")} */}
-                      <td>{funder[1]} Eth</td>
+                      <td> { (funder[1]) ?
+                            (Web3.utils.fromWei(funder[1] , "ether")) : null
+                      } Eth </td>
                     </tr> 
                   return output
                 })
