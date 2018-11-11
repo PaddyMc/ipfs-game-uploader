@@ -11,6 +11,7 @@ const { By, until } = webdriver
 setUpMetaMask = (driver, mnemonic, privateKey, smallDelay) => {
   describe('Sets up metamask', async () => {
     it("Opens and validates metamask", async () => {
+      await delay(smallDelay * 2)
       let windows = await driver.getAllWindowHandles()
       const metamask = windows[1]
       await driver.switchTo().window(metamask)

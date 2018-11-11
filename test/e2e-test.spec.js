@@ -84,7 +84,7 @@ describe('Run e2e tests', () => {
       
       await delay(smallDelay)
       title = await driver.getTitle()
-      assert.equal(title, "Profile", "incorrect title profile")
+      assert.equal(title, "Funders", "incorrect title profile")
     });
   });
 
@@ -134,6 +134,24 @@ describe('Run e2e tests', () => {
       await returnButton.click()
 
       // varify return is clicked
+    });
+
+  });
+
+  describe('Tests the upload screen', async () => {
+    it("Open the Funders screen", async () => {
+      await delay(smallDelay)
+      let menuButtons = await findElements(driver, By.css('.menubutton'))
+      await menuButtons[3].click()
+    });
+
+    it("Verify funder has funded", async () => {
+      await delay(smallDelay * 2)
+      const topFunder = await findElement(driver, By.css('.topFunderText'))
+      const topFunderText = await topFunder.getAttribute("innerHTML")
+      const hadIncreased = Number(topFunderText) >  0 ? true:false
+      assert.ok(hadIncreased, "funder was not added")
+      //await delay(smallDelay * 55)
     });
   });
 
