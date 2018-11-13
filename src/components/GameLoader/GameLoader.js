@@ -4,9 +4,6 @@ import './GameLoader.css';
 import GameDetails from './GameDetails/GameDetails'
 
 class GameLoader extends Component {
-  componentWillMount = () => {
-    this.props.hideGameLoader(false)
-  }
   render() {
     return (
       <div>

@@ -14,6 +14,7 @@ class GameRenderer extends Component {
         ipfsHash: this.props.location.state.gameHash,
         gameOwner: this.props.location.state.gameOwner,
         description: this.props.location.state.description,
+        hideGameLoader: this.props.location.state.hideGameLoader,
         fundUploader: this.props.location.state.fundUploader,
         sendRequestToBuy: this.props.location.state.sendRequestToBuy,
         getAmountFunded: this.props.location.state.getAmountFunded,
@@ -27,6 +28,7 @@ class GameRenderer extends Component {
         ipfsHash: null,
         gameOwner: null,
         description: null,
+        hideGameLoader: null,
         fundUploader: null,
         sendRequestToBuy: null,
         getAmountFunded: null,
@@ -35,6 +37,7 @@ class GameRenderer extends Component {
         gameFundingData: "0",
       }
     }
+    // gameFundingData => store!
   }
   
   componentWillMount = async () => {
@@ -42,6 +45,10 @@ class GameRenderer extends Component {
       let amountFunded = await this.state.getAmountFunded(this.state.number - 1)
       this.setState({gameFundingData : amountFunded[1]})
     }
+  }
+
+  componentWillUnmount = () => {
+    this.state.hideGameLoader(false)
   }
 
   render() {

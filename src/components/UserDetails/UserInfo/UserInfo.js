@@ -18,7 +18,7 @@ class UserInfo extends Component {
                     Total Amount Funded:
                 </div>
                 <div>
-                    {this.props.fundingData}
+                    {this.props.fundingData} Eth
                 </div>
             </div>
           </div>

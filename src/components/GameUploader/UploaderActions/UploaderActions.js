@@ -4,13 +4,21 @@ import './UploaderActions.css';
 
 class UploaderActions extends Component {
     render() {
+      const {
+        files,
+        onSubmit,
+        captureFile,
+        getHash,
+        numberOfHashes,
+      } = this.props
+
       return (
         <div>
-          <form className="smartcontract-action-button" onSubmit={this.props.onSubmit}>
+          <form className="smartcontract-action-button" onSubmit={(event) => {event.preventDefault();onSubmit(files)}}>
             <input 
               name = "Submit Folder"
               type = "file"
-              onChange = {this.props.captureFile}
+              onChange = {(event) => captureFile(event)}
               webkitdirectory="" 
               directory=""
             />
@@ -21,17 +29,11 @@ class UploaderActions extends Component {
           </form>
 
           <form className="smartcontract-action-button">
-            <Button onClick = {this.props.onClick}>
-              Get Transaction Receipt 
-            </Button>
-          </form>
-
-          <form className="smartcontract-action-button">
-            <Button onClick = {this.props.getHash}>
+            <Button onClick = {getHash}>
               Get Hash 
             </Button>
             <div className="smartcontract-number-text">
-              Number of Uploads: {this.props.numberOfHashes}
+              Number of Uploads: {numberOfHashes}
             </div>
           </form>
         </div>
