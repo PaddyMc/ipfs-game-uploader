@@ -30,7 +30,7 @@ class GameDetails extends Component {
               </div>
               <div className="gameloader-container">
                 <div className="gameloader-infoText">Location:</div>
-                <Link className="gameloader-link" onClick={this.props.hideGameLoader} to={ { pathname: `/game/${game.gameHash}`, state: props } }>
+                <Link className="gameloader-link" onClick={() => this.props.hideGameLoader(true)} to={ { pathname: `/game/${game.gameHash}`, state: props } }>
                   {game.gameHash}
                 </Link>
               </div>

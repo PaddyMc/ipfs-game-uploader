@@ -13,9 +13,9 @@ class GameUploader extends Component {
       <div className="shape">
         <div className="marginLeft">
           <UploaderActions 
-            onSubmit={this.props.onSubmit}
+            files= {this.props.files}
+            onSubmit= {this.props.onSubmit}
             captureFile = {this.props.captureFile}
-            onClick = {this.props.onClick}
             getHash = {this.props.getHash}
             numberOfHashes = {this.props.numberOfHashes}
           />

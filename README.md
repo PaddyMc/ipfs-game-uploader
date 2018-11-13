@@ -1,6 +1,5 @@
 <h1>Indie game uploader</h1>
-<p>Fully decentralized application</p>
-<p>'Pure' DApp</p>
+<p>Fully decentralized || 'Pure' DApp</p>
 <p>Uploads a game to IPFS and stores the location on the Ethereum network</p>
 <hr/>
 <h2>Upload rules</h2>
@@ -69,3 +68,4 @@
 <p>netstat -a -o -n</p>
 <p>Kill ports in use</p>
 <p>kill pid</p>
+<hr/>

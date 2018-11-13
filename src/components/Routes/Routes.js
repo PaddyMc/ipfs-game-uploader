@@ -1,10 +1,10 @@
 import React from 'react';
 
-import SmartContract from '../../containers/Upload/Upload';
-import Game from '../../containers/Game/Game';
+import SmartContract from '../../containers/Upload/Upload.container';
+import Game from '../../containers/Game/Game.container';
 import Home from '../../containers/Home/Home';
-import Funder from '../../containers/Funder/Funder';
-import Profile from '../../containers/Profile/Profile';
+import Funder from '../../containers/Funder/Funder.container';
+import Profile from '../../containers/Profile/Profile.container';
 
 import GameRenderer from '../../components/GameRenderer/GameRenderer';
 
