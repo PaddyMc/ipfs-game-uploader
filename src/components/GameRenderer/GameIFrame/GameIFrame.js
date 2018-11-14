@@ -7,7 +7,7 @@ class GameIFrame extends Component {
       <div>
         <iframe className="game" 
                 src={this.props.location} 
-                title={this.props.title} 
+                title="no"
                 scrolling="no" 
                 frameBorder="1" 
                 height="650px">

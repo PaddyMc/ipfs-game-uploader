@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { getGameData,
          hideGameLoader,
-         getAmountFunded,
          fundUploader,
          sendRequestToBuy
        } from '../../actions/actions'
@@ -33,7 +32,6 @@ const mapDispatchToProps = (dispatch) => {
     updateGameData: () => dispatch(getGameData()),
     hideGameLoader: (visibility) => dispatch(hideGameLoader(visibility)),
     
-    getAmountFunded: getAmountFunded,
     fundUploader: fundUploader,
     sendRequestToBuy: sendRequestToBuy,
   }

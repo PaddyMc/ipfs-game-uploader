@@ -1,7 +1,7 @@
 const MAINNET = ""
 const ROPSTEN = ""
 const ROVAN   = ""
-const RINKEBY = "0xaeba6dbedf41bf6e187b0f827a3944e1cc941dbb"
+const RINKEBY = "0x52e1ca50d7a4431642ae30540fb31139f2ef36cb"
 const TEST    = null
 
 export {

@@ -21,6 +21,20 @@ const gameLoaderVisible = (gameloader) => ({
   gameloader
 })
 
+const updateGameRendererData = (ipfsHash, gameOwner, gameFundingData, description, url) => ({
+  type: 'GAME_RENDERER_DATA',
+  ipfsHash,
+  gameOwner,
+  gameFundingData,
+  description,
+  url
+})
+
+const updateGameRendererLoading = (gameRendererLoading) => ({
+  type: 'GAME_RENDERER_LOADING',
+  gameRendererLoading
+})
+
 const getFileUploaded = async (ipfsHash) => {
   return ipfs.get(ipfsHash)
 } 
@@ -82,15 +96,24 @@ export const hideGameLoader = (visibility) => (dispatch) => {
   dispatch(gameLoaderVisible(visibility))
 }
 
+export const hideGameRenderer = (visibility) => (dispatch) => {
+  dispatch(updateGameRendererLoading(visibility))
+}
+
 // Game Renderer Actions
-export const getAmountFunded = async (number) => {
+export const getGameRendererData = (ipfsHash) => async (dispatch) => {
   const [accounts] = await web3.eth.getAccounts();
-  return gametracker.methods.getAccountForGame(number).call({
+  const gameFundingData = await gametracker.methods.getAccountForGame(ipfsHash).call({
     from: accounts,
   });
+  let description = await getDescription(ipfsHash)
+  description = Buffer.from(description[0].content).toString()
+  dispatch(updateGameRendererData(ipfsHash, gameFundingData[0], gameFundingData[1], description, "https://ipfs.infura.io/ipfs/"))
+  dispatch(updateGameRendererLoading(false))
 }
 
 export const fundUploader = async (ipfsHash) => {
+  const [account] = await web3.eth.getAccounts();
   var eventETHDeposited = gametracker.events.UpdatedBalance({from: account});
   eventETHDeposited.subscribe((err, result) => { 
     if (err) {
@@ -99,12 +122,11 @@ export const fundUploader = async (ipfsHash) => {
     console.log(result)
   });
 
-  const [account] = await web3.eth.getAccounts();
   gametracker.methods.fundGameOwner(ipfsHash).send({
     from: account,
     value: web3.utils.toWei('0.2', "ether")
   }, (err, data) => {
-    console.log(data)
+    //console.log(data)
   });
 
   // var event = gametracker.events.UpdatedBalance({from: loadedAccounts});

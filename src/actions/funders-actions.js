@@ -20,7 +20,6 @@ const getAmountFunded = async () => {
   promises.push(gametracker.methods.getNumberOfFunders().call({
     from: accounts
   }))
-
   return Promise.all(promises)
 }
 
@@ -33,7 +32,6 @@ const getAllFunders = async (numberOfFunders) => {
       from: accounts
     }))
   }
-
   return Promise.all(promises)
 }
 

@@ -6,7 +6,7 @@ import Home from '../../containers/Home/Home';
 import Funder from '../../containers/Funder/Funder.container';
 import Profile from '../../containers/Profile/Profile.container';
 
-import GameRenderer from '../../components/GameRenderer/GameRenderer';
+import GameRenderer from '../../components/GameRenderer/GameRenderer.container';
 
 import { Route } from 'react-router-dom'
 
