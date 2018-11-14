@@ -90,9 +90,17 @@ export const getAmountFunded = async (number) => {
   });
 }
 
-export const fundUploader = async (number) => {
+export const fundUploader = async (ipfsHash) => {
+  var eventETHDeposited = gametracker.events.UpdatedBalance({from: account});
+  eventETHDeposited.subscribe((err, result) => { 
+    if (err) {
+      return;
+    }
+    console.log(result)
+  });
+
   const [account] = await web3.eth.getAccounts();
-  gametracker.methods.fundGameOwner(number).send({
+  gametracker.methods.fundGameOwner(ipfsHash).send({
     from: account,
     value: web3.utils.toWei('0.2', "ether")
   }, (err, data) => {
@@ -107,14 +115,6 @@ export const fundUploader = async (number) => {
   //     }
   //     console.log(result)
   // });
-
-  var eventETHDeposited = gametracker.events.ETHDeposited({from: account});
-  eventETHDeposited.subscribe((err, result) => { 
-    if (err) {
-      return;
-    }
-    console.log(result)
-  });
 }
 
 export const sendRequestToBuy = async (ownerAddress) => {

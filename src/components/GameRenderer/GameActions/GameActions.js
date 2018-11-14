@@ -5,7 +5,7 @@ import './GameActions.css';
 class GameActions extends Component {
   fundUploader = (event) => {
     event.preventDefault()
-    this.props.fundUploader(this.props.gameNumber-1);
+    this.props.fundUploader(this.props.ipfsHash);
   }
 
   sendRequestToBuy = (event) => {

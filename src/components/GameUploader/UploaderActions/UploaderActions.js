@@ -10,6 +10,7 @@ class UploaderActions extends Component {
         captureFile,
         getHash,
         numberOfHashes,
+        resetValuesUI,
       } = this.props
 
       return (
@@ -18,7 +19,7 @@ class UploaderActions extends Component {
             <input 
               name = "Submit Folder"
               type = "file"
-              onChange = {(event) => captureFile(event)}
+              onChange = {(event) => {resetValuesUI();captureFile(event)}}
               webkitdirectory="" 
               directory=""
             />

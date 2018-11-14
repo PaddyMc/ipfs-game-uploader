@@ -17,9 +17,6 @@ const getAmountFunded = async () => {
   promises.push(gametracker.methods.getTotalAmountFunded().call({
     from: accounts
   }))
-  promises.push(gametracker.methods.getTopFunder().call({
-    from: accounts
-  }))
   promises.push(gametracker.methods.getNumberOfFunders().call({
     from: accounts
   }))
@@ -40,11 +37,19 @@ const getAllFunders = async (numberOfFunders) => {
   return Promise.all(promises)
 }
 
+const sortAllFunders = (allFunders) => {
+  allFunders = allFunders.sort((funder1, funder2) => {
+    return Number(funder2[1]) - Number(funder1[1]) 
+  })
+  return allFunders
+}
+
 export const getFunderData = () => async (dispatch, getState) => {
   const funderData = await getAmountFunded()
   const totalAmountFunded = funderData[0]
-  const topFunder = funderData[1]
-  const numberOfFunders = funderData[2]
-  const allFunders = await getAllFunders(numberOfFunders)
+  const numberOfFunders = funderData[1]
+  let allFunders = await getAllFunders(numberOfFunders)
+  allFunders = sortAllFunders(allFunders)
+  const topFunder = allFunders[0] ? allFunders[0] : {"no":"no"}
   dispatch(updateAllFunderData(totalAmountFunded, topFunder, numberOfFunders, allFunders))
 }

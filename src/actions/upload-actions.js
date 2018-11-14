@@ -65,7 +65,7 @@ export const uploadToIPFS = (files) => async (dispatch, getState) => {
   const ipfsHash = await ipfs.add(files);
   dispatch(updateIPFSHash(ipfsHash[ipfsHash.length-1].hash))
   
-  const result = await gametracker.methods.upload(ipfsHash[ipfsHash.length-1].hash, web3.utils.toHex('Hope')).send({
+  const result = await gametracker.methods.upload(ipfsHash[ipfsHash.length-1].hash).send({
                           from: accounts[0] 
                         })
   dispatch(updateTransactionHash(result.transactionHash))

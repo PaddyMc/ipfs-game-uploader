@@ -9,20 +9,6 @@ const address = TEST ? TEST : RINKEBY
 
 const abi = [
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "position",
-				"type": "uint256"
-			}
-		],
-		"name": "fundGameOwner",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
@@ -46,6 +32,20 @@ const abi = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"name": "fundGameOwner",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -65,29 +65,11 @@ const abi = [
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "totalETH",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
 				"name": "ipfsHash",
 				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "bytes32"
 			}
 		],
 		"name": "upload",
@@ -106,24 +88,6 @@ const abi = [
 		],
 		"name": "getTotalGamesForOwner",
 		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getTopFunder",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			},
 			{
 				"name": "",
 				"type": "uint256"
@@ -178,7 +142,7 @@ const abi = [
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "address"
 			},
 			{
 				"name": "",
@@ -247,46 +211,8 @@ const abi = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "totalTokenBalances",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [],
 		"name": "getNumberOfHashes",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"name": "baseTokenBalance",
 		"outputs": [
 			{
 				"name": "",
@@ -310,20 +236,6 @@ const abi = [
 			{
 				"name": "",
 				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "baseETHBalance",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -396,170 +308,6 @@ const abi = [
 			}
 		],
 		"name": "UpdatedBalance",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "topFunder",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "topFunds",
-				"type": "uint256"
-			}
-		],
-		"name": "TopFunder",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "account",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "ETHDeposited",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "account",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "ETHSent",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "fromAccount",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "toAccount",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "ETHTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "fromAccount",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "toAccount",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "TokenTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "account",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "TokenDeposited",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "account",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "TokenSent",
 		"type": "event"
 	}
 ]

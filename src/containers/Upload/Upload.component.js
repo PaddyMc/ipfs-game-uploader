@@ -21,7 +21,8 @@ class Upload extends Component {
     numberOfHashes: PropTypes.string,
     getAllHashes: PropTypes.func,
     captureFile: PropTypes.func,
-    submitFilesAndCallSmartContract: PropTypes.func
+    submitFilesAndCallSmartContract: PropTypes.func,
+    resetValuesUI: PropTypes.func
   }
 
   componentWillMount = () => {
@@ -43,6 +44,7 @@ class Upload extends Component {
       getAllHashes,
       captureFile,
       submitFilesAndCallSmartContract,
+      resetValuesUI,
     } = this.props
 
     return (
@@ -59,6 +61,7 @@ class Upload extends Component {
           captureFile = {captureFile}
           getHash = {getAllHashes}
           numberOfHashes = {numberOfHashes}
+          resetValuesUI = {resetValuesUI}
 
           ipfsHash={ipfsHash}
           ethAddress={ethAddress}

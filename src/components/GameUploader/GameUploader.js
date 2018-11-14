@@ -16,6 +16,7 @@ class GameUploader extends Component {
             files= {this.props.files}
             onSubmit= {this.props.onSubmit}
             captureFile = {this.props.captureFile}
+            resetValuesUI = {this.props.resetValuesUI}
             getHash = {this.props.getHash}
             numberOfHashes = {this.props.numberOfHashes}
           />

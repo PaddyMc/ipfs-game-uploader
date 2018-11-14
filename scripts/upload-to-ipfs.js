@@ -31,7 +31,7 @@ uploadToIPFS = () => {
 				break;
 			}
 		}
-		console.log('lashHash', lastHash);
+		console.log('lastHash', lastHash);
 		return ipfs.name.publish(lastHash);
 	})
 	.then(() => {
