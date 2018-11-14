@@ -73,7 +73,7 @@ deploySmartContract = async () => {
 
 uploadGame = (accounts, abi, address) => {
   const gametracker = new web3.eth.Contract(JSON.parse(abi), address);
-  gametracker.methods.upload("QmPXgPCzbdviCVJTJxvYCWtMuRWCKRfNRVcSpARHDKFShd", web3.utils.toHex('Hope')).send({
+  gametracker.methods.upload("QmZd8Lej7t7b49M8FWLi7UasKZgk88L6A8y8jcjtZ23YJN").send({
     from: accounts[0],
     gas: 1060982
   }, (error, transactionHash) => {

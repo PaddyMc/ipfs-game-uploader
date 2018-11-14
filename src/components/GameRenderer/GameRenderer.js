@@ -64,6 +64,7 @@ class GameRenderer extends Component {
           </div>
           <div>
             <GameActions 
+              ipfsHash={this.state.ipfsHash}
               gameOwner={this.state.gameOwner}
               gameNumber={this.state.number}
               fundUploader={this.state.fundUploader}
