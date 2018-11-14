@@ -3,28 +3,31 @@ import { getFunderData } from './funders-actions'
 
 import { getGameData, 
          hideGameLoader,
-         getAmountFunded,
+         hideGameRenderer,
          fundUploader,
-         sendRequestToBuy
+         sendRequestToBuy,
+         getGameRendererData,
        } from './game-actions'
 
 import { getAllHashes, 
          captureFile,
          uploadToIPFS,
          resetValuesUI
-      } from './upload-actions'
+       } from './upload-actions'
 
 export {
   // Profile Functions
   getProfileData,
   // Funder Functions
   getFunderData,
-  // Game Functions
+  // Game Loader Functions
   getGameData,
   hideGameLoader,
-  getAmountFunded,
+  // Game Renderer Functions
+  getGameRendererData,
   fundUploader,
   sendRequestToBuy,
+  hideGameRenderer,
   // Upload Functions
   getAllHashes,
   captureFile,

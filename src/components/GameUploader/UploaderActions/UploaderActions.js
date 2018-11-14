@@ -19,7 +19,7 @@ class UploaderActions extends Component {
             <input 
               name = "Submit Folder"
               type = "file"
-              onChange = {(event) => {resetValuesUI();captureFile(event)}}
+              onChange = {(event) => { resetValuesUI(); captureFile(event) }}
               webkitdirectory="" 
               directory=""
             />

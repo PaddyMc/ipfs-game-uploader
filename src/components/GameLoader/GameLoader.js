@@ -5,16 +5,24 @@ import GameDetails from './GameDetails/GameDetails'
 
 class GameLoader extends Component {
   render() {
+    const {
+      numberOfGames,
+      allGames,
+      hideGameLoader,
+      getAmountFunded,
+      fundUploader,
+      sendRequestToBuy
+    } = this.props
     return (
       <div>
         <div>
           <GameDetails 
-            numberOfGames={this.props.numberOfGames} 
-            allGames={this.props.allGames}
-            hideGameLoader = {this.props.hideGameLoader}
-            getAmountFunded = {this.props.getAmountFunded}
-            fundUploader = {this.props.fundUploader}
-            sendRequestToBuy = {this.props.sendRequestToBuy}
+            numberOfGames={numberOfGames} 
+            allGames={allGames}
+            hideGameLoader = {hideGameLoader}
+            getAmountFunded = {getAmountFunded}
+            fundUploader = {fundUploader}
+            sendRequestToBuy = {sendRequestToBuy}
           />
         </div>
       </div>
