@@ -35,6 +35,11 @@ const updateGameRendererLoading = (gameRendererLoading) => ({
   gameRendererLoading
 })
 
+const updateGameFundingData = (sortedGameFundedData) => ({
+  type: 'SORTED_GAME_DATA',
+  sortedGameFundedData
+})
+
 const getFileUploaded = async (ipfsHash) => {
   return ipfs.get(ipfsHash)
 } 
@@ -70,6 +75,13 @@ const getAllInfoByPosition = async (numberOfGames) => {
   return Promise.all(promises)
 }
 
+const sortAllGames = (allGames) => {
+  allGames = allGames.sort((game1, game2) => {
+    return Number(game2.gameFundedData) - Number(game1.gameFundedData) 
+  })
+  return allGames
+}
+
 export const getGameData = () => async (dispatch, getState) => {
   const numberOfGames = await getTotalHashes()
   const getAllInfoByPositionData = await getAllInfoByPosition(numberOfGames)
@@ -82,7 +94,8 @@ export const getGameData = () => async (dispatch, getState) => {
       allGames.push({
         number : i / 2,
         gameHash : getAllInfoByPositionData[i-2],
-        gameOwner : getAllInfoByPositionData[i-1],
+        gameOwner : getAllInfoByPositionData[i-1][0],
+        gameFundedData: getAllInfoByPositionData[i-1][1],
         description: description.toString()
       })
       //this.getImageData(data[i-2], i / 2)
@@ -90,6 +103,9 @@ export const getGameData = () => async (dispatch, getState) => {
   }
   dispatch(updateAllGameData(numberOfGames, allGames))
   dispatch(updateLoaded(true))
+
+  allGames = sortAllGames(allGames)
+  dispatch(updateGameFundingData(allGames))
 }
 
 export const hideGameLoader = (visibility) => (dispatch) => {

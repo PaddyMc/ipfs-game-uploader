@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
-import { getFunderData } from '../../actions/actions'
+import { getFunderData,
+         getGameData
+       } from '../../actions/actions'
 
 import Funder from './Funder.component.js'
 
@@ -13,6 +15,10 @@ const mapStateToProps = (state) => {
     allFunders,
   } = state.funders
 
+  const {
+    sortedGameFundedData
+  } = state.game
+
   return {
     intro,
     welcomeText,
@@ -20,12 +26,14 @@ const mapStateToProps = (state) => {
     topFunder,
     numberOfFunders,
     allFunders,
+    sortedGameFundedData,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateFunderData: () => dispatch(getFunderData())
+    updateFunderData: () => dispatch(getFunderData()),
+    updateGameData: () => dispatch(getGameData())
   }
 }
 

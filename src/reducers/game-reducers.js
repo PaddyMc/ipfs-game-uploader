@@ -18,6 +18,7 @@ const game = (state, action) => {
       index: "index.html",
     },
     gameRendererLoading: true,
+    sortedGameFundedData: [],
   }, state)
 
   switch (action.type) {
@@ -52,6 +53,11 @@ const game = (state, action) => {
     case 'GAME_RENDERER_LOADING':
       newState = extend(gameState, {
         gameRendererLoading: action.gameRendererLoading 
+      })
+      return newState
+    case 'SORTED_GAME_DATA':
+      newState = extend(gameState, {
+        sortedGameFundedData: action.sortedGameFundedData 
       })
       return newState
     default:

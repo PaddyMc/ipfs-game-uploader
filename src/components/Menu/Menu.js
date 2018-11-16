@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './Menu.css';
 import Routes from '../Routes/Routes'
 
-class Menu extends React.Component {  
+class Menu extends React.Component {
+    // getAddressForRouting
     render() {    
         return (
             <div>
