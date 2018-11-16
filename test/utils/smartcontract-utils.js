@@ -19,9 +19,9 @@ findImports = (path) => {
       return { 
         contents: fs.readFileSync('./smartcontract/contracts/lib/math.sol', 'utf8')
       }
-    case ( "Accounting.sol" ):
+    case ( "interface/GameTrackerInterface.sol" ):
       return { 
-        contents: fs.readFileSync('./smartcontract/contracts/Accounting.sol', 'utf8')
+        contents: fs.readFileSync('./smartcontract/contracts/interface/GameTrackerInterface.sol', 'utf8')
       }
     case ( "lib/erc20.sol" ):
       return { 

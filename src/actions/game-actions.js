@@ -75,11 +75,11 @@ const getAllInfoByPosition = async (numberOfGames) => {
   return Promise.all(promises)
 }
 
-const sortAllGames = (allGames) => {
-  allGames = allGames.sort((game1, game2) => {
+const sortAllGames = (newAllGames) => {
+  newAllGames = newAllGames.sort((game1, game2) => {
     return Number(game2.gameFundedData) - Number(game1.gameFundedData) 
   })
-  return allGames
+  return newAllGames
 }
 
 export const getGameData = () => async (dispatch, getState) => {
@@ -104,8 +104,10 @@ export const getGameData = () => async (dispatch, getState) => {
   dispatch(updateAllGameData(numberOfGames, allGames))
   dispatch(updateLoaded(true))
 
-  allGames = sortAllGames(allGames)
-  dispatch(updateGameFundingData(allGames))
+  var newAllGames = allGames.slice()
+  newAllGames = sortAllGames(newAllGames)
+  dispatch(updateGameFundingData(newAllGames))
+  
 }
 
 export const hideGameLoader = (visibility) => (dispatch) => {
