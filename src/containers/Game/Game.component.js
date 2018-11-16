@@ -19,8 +19,6 @@ class Game extends Component {
     updateGameData: PropTypes.func,
     hideGameLoader: PropTypes.func,
     getAmountFunded: PropTypes.func,
-    fundUploader: PropTypes.func,
-    sendRequestToBuy: PropTypes.func,
   }
 
   componentWillMount = () => {
@@ -38,8 +36,6 @@ class Game extends Component {
       loaded,
       hideGameLoader,
       getAmountFunded,
-      fundUploader,
-      sendRequestToBuy
     } = this.props
 
     return (
@@ -60,8 +56,6 @@ class Game extends Component {
                 //Renderer
                 hideGameLoader={hideGameLoader}
                 getAmountFunded={getAmountFunded}
-                fundUploader={fundUploader}
-                sendRequestToBuy={sendRequestToBuy}
               /> 
             )
         }

@@ -10,8 +10,6 @@ class GameLoader extends Component {
       allGames,
       hideGameLoader,
       getAmountFunded,
-      fundUploader,
-      sendRequestToBuy
     } = this.props
     return (
       <div>
@@ -21,8 +19,6 @@ class GameLoader extends Component {
             allGames={allGames}
             hideGameLoader = {hideGameLoader}
             getAmountFunded = {getAmountFunded}
-            fundUploader = {fundUploader}
-            sendRequestToBuy = {sendRequestToBuy}
           />
         </div>
       </div>
