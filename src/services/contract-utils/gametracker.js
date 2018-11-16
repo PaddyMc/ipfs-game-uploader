@@ -1,10 +1,6 @@
 import web3 from './web3';
 import { RINKEBY, TEST } from '../../constants/constants'
-//0x7462cd6f63cc2ba43a663f515525e52fc1337a19
-//0xe27fcc33409308a83e2aeaf0b117c5f53d14107e
-//0x573e7a796470898a134c1ffb5b900598c76cc85d
-//0xcb4f7ceb474af71679c3c4381a682aa6c0ff9839
-//0xe36f2111a151438553a6dd5afee4b1d277057a75
+
 const address = TEST ? TEST : RINKEBY
 
 const abi = [
@@ -58,6 +54,10 @@ const abi = [
 			{
 				"name": "",
 				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,

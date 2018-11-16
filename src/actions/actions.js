@@ -18,16 +18,20 @@ import { getAllHashes,
 export {
   // Profile Functions
   getProfileData,
+
   // Funder Functions
   getFunderData,
+
   // Game Loader Functions
   getGameData,
   hideGameLoader,
+
   // Game Renderer Functions
   getGameRendererData,
   fundUploader,
   sendRequestToBuy,
   hideGameRenderer,
+  
   // Upload Functions
   getAllHashes,
   captureFile,

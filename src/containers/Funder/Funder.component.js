@@ -15,12 +15,20 @@ class Funder extends Component {
     totalAmountFunded: PropTypes.string,
     topFunder: PropTypes.object,
     numberOfFunders: PropTypes.string,
+    sortedGameFundedData: PropTypes.array,
     updateFunderData: PropTypes.func,
   }
 
   componentWillMount = () => {
-    const { updateFunderData } = this.props
+    const { 
+      updateFunderData,
+      sortedGameFundedData,
+      updateGameData
+    } = this.props
     updateFunderData()
+    if(sortedGameFundedData.length === 0){
+      updateGameData()
+    }
   }
 
   render() {
@@ -30,7 +38,8 @@ class Funder extends Component {
       numberOfFunders,
       totalAmountFunded,
       topFunder,
-      allFunders
+      allFunders,
+      sortedGameFundedData
     } = this.props
     
     return (
@@ -46,6 +55,7 @@ class Funder extends Component {
           totalAmountFunded={totalAmountFunded}
           topFunder={topFunder}
           allFunders={allFunders}
+          sortedGameFundedData={sortedGameFundedData}
         />
       </div>
     );
