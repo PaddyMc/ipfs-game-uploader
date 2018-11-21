@@ -45,7 +45,7 @@ const game = (state, action) => {
           gameOwner: action.gameOwner,
           gameFundingData: action.gameFundingData,
           description: action.description,
-          url: action.url,
+          url: gameState.gameRenderer.url,
           index: "index.html",
         }
       })
@@ -58,6 +58,18 @@ const game = (state, action) => {
     case 'SORTED_GAME_DATA':
       newState = extend(gameState, {
         sortedGameFundedData: action.sortedGameFundedData 
+      })
+      return newState
+    case 'UPDATE_IPFS_LOCATION':
+      newState = extend(gameState, {
+        gameRenderer: {
+          ipfsHash: gameState.gameRenderer.ipfsHash,
+          gameOwner: gameState.gameRenderer.gameOwner,
+          gameFundingData: gameState.gameRenderer.gameFundingData,
+          description: gameState.gameRenderer.description,
+          url: action.url,
+          index: "index.html",
+        }
       })
       return newState
     default:

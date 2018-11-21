@@ -7,6 +7,7 @@ import { getGameData,
          fundUploader,
          sendRequestToBuy,
          getGameRendererData,
+         changeIPFSLocation
        } from './game-actions'
 
 import { getAllHashes, 
@@ -25,6 +26,7 @@ export {
   // Game Loader Functions
   getGameData,
   hideGameLoader,
+  changeIPFSLocation,
 
   // Game Renderer Functions
   getGameRendererData,
