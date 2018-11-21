@@ -1,6 +1,8 @@
 import web3 from '../services/contract-utils/web3';
-import ipfs from '../services/ipfs';
+import IPFS from 'ipfs-api';
 import gametracker from '../services/contract-utils/gametracker';
+
+import { ipfsInfura, ipfsLocal } from '../constants/constants'
 
 const updateNumberOfHashes = (numberOfHashes) => ({
   type: 'NUMBER_OF_HASHES',
@@ -56,13 +58,17 @@ const convertToBuffer = async (reader, folderPath, files) => {
 };
 
 export const uploadToIPFS = (files) => async (dispatch, getState) => {
+  const ipfsURL = getState().game.gameRenderer.url
   const accounts = await web3.eth.getAccounts();
   const ethAddress = await gametracker.options.address;
 
   dispatch(updateEthAddress(ethAddress));
   console.log('Sending from Metamask account: ' + accounts[0]);
 
+  const ipfs = selectIPFSLocation(ipfsURL)
+  console.log(files)
   const ipfsHash = await ipfs.add(files);
+
   dispatch(updateIPFSHash(ipfsHash[ipfsHash.length-1].hash))
   
   const result = await gametracker.methods.upload(ipfsHash[ipfsHash.length-1].hash).send({
@@ -82,4 +88,16 @@ export const getAllHashes = () => async (dispatch, getState) => {
 
 export const resetValuesUI = () => async (dispatch, getState) => {
   dispatch(resetValues())
+}
+
+export const selectIPFSLocation = (url) => {
+  console.log(url)
+  switch(url) {
+    case ipfsInfura:
+      return  new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+    case ipfsLocal:
+      return new IPFS('localhost', '5001', { protocol:'http' });
+    default:
+      break
+  }
 }

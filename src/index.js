@@ -1,17 +1,10 @@
 import React from 'react';
 import './index.css';
 import App from './containers/App/App';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker';
 import { hydrate, render } from 'react-dom';
-
-import rootReducer from './reducers/reducers'
-const store = createStore(
-                rootReducer,
-                applyMiddleware(thunk)
-              )
+import store from './store/store'
 
 const rootElement = document.getElementById('root');
 if (rootElement.hasChildNodes()) {
