@@ -66,7 +66,6 @@ export const uploadToIPFS = (files) => async (dispatch, getState) => {
   console.log('Sending from Metamask account: ' + accounts[0]);
 
   const ipfs = selectIPFSLocation(ipfsURL)
-  console.log(files)
   const ipfsHash = await ipfs.add(files);
 
   dispatch(updateIPFSHash(ipfsHash[ipfsHash.length-1].hash))
@@ -91,7 +90,6 @@ export const resetValuesUI = () => async (dispatch, getState) => {
 }
 
 export const selectIPFSLocation = (url) => {
-  console.log(url)
   switch(url) {
     case ipfsInfura:
       return  new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });

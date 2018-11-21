@@ -9,10 +9,11 @@ class IPFSSelector extends Component {
     } = this.props
 
     return (
-      <div>
+      <div className="diplayInline">
+        <div className="ipfsLocationText">IPFS:</div>
         <select className="options" onInputCapture={changeIPFSLocation}>
-          <option className="" value="infura">Infura</option>
-          <option className="" value="local">Localhost</option>
+          <option className="" value="infura">ipfs.infura.io</option>
+          <option className="" value="local">localhost</option>
         </select>
       </div>
     );
