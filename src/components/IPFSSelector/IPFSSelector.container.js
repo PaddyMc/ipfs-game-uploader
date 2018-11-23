@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import { changeIPFSLocation
-       } from '../../actions/actions'
+import { changeIPFSLocation } from '../../actions/actions'
 
 import IPFSSelector from './IPFSSelector.component.js'
 

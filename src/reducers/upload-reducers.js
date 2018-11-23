@@ -51,8 +51,8 @@ const upload = (state, action) => {
         ipfsHash: '',
         ethAddress: '',
         transactionHash: '',
-        blockNumber: '',
-        gasUsed: ''
+        blockNumber: 0,
+        gasUsed: 0
       })
       return newState
     default:

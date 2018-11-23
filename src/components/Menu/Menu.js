@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Menu.css';
+
 import Routes from '../Routes/Routes'
 import IPFSSelector from '../IPFSSelector/IPFSSelector.container';
+
 
 class Menu extends React.Component {
   // getAddressForRouting - Profile
@@ -20,6 +22,7 @@ class Menu extends React.Component {
           <Link className="menubutton" to="/profile">Profile</Link>
         </div>
         <Routes />
+        
       </div>
     );
   }
