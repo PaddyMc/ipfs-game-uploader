@@ -9,9 +9,10 @@
 
 .smartcontract-action-button{
     display: flex;
-    padding: 5px;
+    padding: 10px;
+    text-align : left;
 }
 
 .smartcontract-number-text {
-    margin-left: 20%
+
 }

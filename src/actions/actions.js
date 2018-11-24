@@ -13,7 +13,9 @@ import { getGameData,
 import { getAllHashes, 
          captureFile,
          uploadToIPFS,
-         resetValuesUI
+         resetValuesUI,
+         validate,
+         captureImage,
        } from './upload-actions'
 
 export {
@@ -38,5 +40,7 @@ export {
   getAllHashes,
   captureFile,
   uploadToIPFS,
-  resetValuesUI
+  resetValuesUI,
+  validate,
+  captureImage
 }

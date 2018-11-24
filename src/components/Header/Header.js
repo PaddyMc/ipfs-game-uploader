@@ -9,6 +9,7 @@ class Header extends Component {
         <h1 className="introText">{this.props.intro}</h1>
         <hr/>
         <h3 className="">{this.props.welcomeText}</h3>
+        <hr />
       </div>
     );
   } 

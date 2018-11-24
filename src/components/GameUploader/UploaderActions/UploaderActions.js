@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import UploadForm from './UploadForm/UploadForm'
 import './UploaderActions.css';
 
 class UploaderActions extends Component {
@@ -11,30 +12,40 @@ class UploaderActions extends Component {
         getHash,
         numberOfHashes,
         resetValuesUI,
+        captureImage
       } = this.props
 
       return (
-        <div>
-          <form className="smartcontract-action-button" onSubmit={(event) => {event.preventDefault();onSubmit(files)}}>
-            <input 
-              name = "Submit Folder"
-              type = "file"
-              onChange = {(event) => { resetValuesUI(); captureFile(event) }}
-              webkitdirectory="" 
-              directory=""
-            />
-            <Button 
-              type="submit"> 
-              Upload Game to IPFS
-            </Button>
-          </form>
-
+        <div className="uploaderActions">
           <form className="smartcontract-action-button">
-            <Button onClick = {getHash}>
-              Get Hash 
-            </Button>
-            <div className="smartcontract-number-text">
+            <div className="inputText">
+              <Button onClick={getHash}>
+                Get Hash 
+              </Button>
+            </div>
+            <div>
               Number of Uploads: {numberOfHashes}
+            </div>
+          </form>
+          <UploadForm
+            captureImage = {captureImage}
+           />
+          <form className="" onSubmit={(event) => {event.preventDefault(); onSubmit(files)}}>
+            <div className="folderUploader">
+              <div className="inputText">Folder:</div>
+              <input
+                name = "Submit Folder"
+                type = "file"
+                onChange = {(event) => { captureFile(event) }}
+                webkitdirectory={numberOfHashes} 
+                directory={numberOfHashes}
+              />
+            </div>
+            <div className="finalUploadButtonContainer">
+              <Button className="finalUploadButton"
+                type="submit"> 
+                Upload Game to IPFS
+              </Button>
             </div>
           </form>
         </div>

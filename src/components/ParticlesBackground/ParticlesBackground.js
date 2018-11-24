@@ -5,20 +5,14 @@ import ParticleAnimation from 'react-particle-animation'
 
 class ParticlesBackground extends Component {
   render() { 
-    const {
-    } = this.props
-
-    // console.log(particlesJS)
     return (
       <div className="">
-        <div >
           <ParticleAnimation className="particles"
             numParticles={300}
             interactive={false}
             color={{ r: 100, g: 100, b: 100, a: 100 }}
             background={{ r: 255, g: 255, b: 255, a: 255 }}
           />
-        </div>
       </div>
     );
   } 

@@ -10,6 +10,7 @@ class GameUploader extends Component {
       files,
       onSubmit,
       captureFile,
+      captureImage,
       resetValuesUI,
       getHash,
       numberOfHashes,
@@ -27,6 +28,7 @@ class GameUploader extends Component {
             files= {files}
             onSubmit= {onSubmit}
             captureFile = {captureFile}
+            captureImage = {captureImage}
             resetValuesUI = {resetValuesUI}
             getHash = {getHash}
             numberOfHashes = {numberOfHashes}
