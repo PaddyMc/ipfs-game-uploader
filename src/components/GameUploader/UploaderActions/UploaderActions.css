@@ -1,0 +1,41 @@
+.uploaderActions {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.finalUploadButton {
+  width: 40%;
+  height: 25px;
+}
+
+.finalUploadButtonContainer {
+  padding: 10px;
+  height: 50px;
+}
+
+.inputContainer {
+  align-items: baseline;
+  padding: 10px;
+  display: flex;
+}
+
+.imageFile {
+  align-items: baseline;
+  display: flex;
+}
+
+.input {
+  width: 100%;
+}
+
+.folderUploader {
+  align-items: baseline;
+  padding: 10px;
+  text-align: left;
+  display: flex;
+}
+
+.inputText {
+  width: 20%;
+  text-align: left; 
+}

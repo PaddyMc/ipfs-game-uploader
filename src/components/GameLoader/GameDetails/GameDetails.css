@@ -1,5 +1,10 @@
 .gameloader-container {
   display: flex;
+ 
+}
+
+.gameloader-info {
+  display: flex;
 }
 
 .gameloader-infoText {
@@ -13,5 +18,12 @@
 }
 
 .gameloader-info-container{
-  
+  width: -webkit-fill-available ;
+}
+
+.gameloader-image {
+  margin: 0;
+  width: 15%;
+  margin: auto;
+
 }

@@ -4,14 +4,15 @@ let newState
 const upload = (state, action) => {
   var uploadState = extend({
     intro: "Game Uploader",
-    welcomeText: "Choose folder to send to IPFS; the folder must contain a runnable index.html & description.txt",
+    welcomeText: "Choose folder to send to IPFS; the folder must contain a runnable index.html",
     ipfsHash: '',
     files:[],
     ethAddress:'',
     blockNumber: 0,
     transactionHash:'',
     gasUsed: 0,
-    numberOfHashes: '0'
+    numberOfHashes: '0',
+    image : []
   }, state)
 
   switch (action.type) {
@@ -20,9 +21,20 @@ const upload = (state, action) => {
         numberOfHashes: action.numberOfHashes
       })
       return newState
-    case 'FILES':
+    case 'ADD_FILES':
       newState = extend(uploadState, {
-        files: action.files,
+        files: action.files
+      })
+      return newState
+    case 'ADD_IMAGE':
+      newState = extend(uploadState, {
+        image: action.image
+      })
+      return newState
+    case 'CLEAR_FILES':
+      newState = extend(uploadState, {
+        files: [],
+        image: []
       })
       return newState
     case 'ETH_ADDRESS':

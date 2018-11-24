@@ -43,6 +43,7 @@ class Upload extends Component {
       numberOfHashes,
       getAllHashes,
       captureFile,
+      captureImage,
       submitFilesAndCallSmartContract,
       resetValuesUI,
     } = this.props
@@ -59,6 +60,7 @@ class Upload extends Component {
           files={files}
           onSubmit={submitFilesAndCallSmartContract}
           captureFile = {captureFile}
+          captureImage = {captureImage}
           getHash = {getAllHashes}
           numberOfHashes = {numberOfHashes}
           resetValuesUI = {resetValuesUI}

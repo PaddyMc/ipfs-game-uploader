@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 import { getAllHashes,
          captureFile,
          uploadToIPFS,
-         resetValuesUI
+         resetValuesUI,
+         captureImage
        } from '../../actions/actions'
 
 import Upload from './Upload.component'
@@ -37,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getAllHashes: () => dispatch(getAllHashes()),
     captureFile: (event) => dispatch(captureFile(event)),
+    captureImage: (event) => dispatch(captureImage(event)),
     submitFilesAndCallSmartContract: (files) => dispatch(uploadToIPFS(files)),
     resetValuesUI: () => dispatch(resetValuesUI())
   }

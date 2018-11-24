@@ -55,7 +55,7 @@ const getDescription = async (ipfsHash, ipfs) => {
 }
 
 const getImage = async (ipfsHash, ipfs) => {
-  var image = `${ipfsHash}/image.png`
+  var image = `${ipfsHash}/imageForGameUploader.png`
   return getFileUploaded(image, ipfs);
 }
 
@@ -99,16 +99,17 @@ export const getGameData = () => async (dispatch, getState) => {
       let description = getDescription(getAllInfoByPositionData[i-2], ipfs)
       let descriptionText = "null"
       await description.then((result)=>{
-        descriptionText = result ?  Buffer.from(result[0].content) : "None"
+        descriptionText = result ?  JSON.parse(Buffer.from(result[0].content).toString()) : "None"
       }).catch(()=>{
 
       }).finally(()=>{
+        console.log(descriptionText)
         allGames.push({
           number : i / 2,
           gameHash : getAllInfoByPositionData[i-2],
           gameOwner : getAllInfoByPositionData[i-1][0],
           gameFundedData: getAllInfoByPositionData[i-1][1],
-          description: descriptionText.toString()
+          description: descriptionText.description,
         })
       })
     }
@@ -140,10 +141,9 @@ export const getGameRendererData = (ipfsHash) => async (dispatch, getState) => {
   let description = getDescription(ipfsHash, ipfs)
   let descriptionText = ""
   await description.then((result)=>{
-    descriptionText = result ?  Buffer.from(result[0].content) : "None"
+    descriptionText = result ?  JSON.parse(Buffer.from(result[0].content).toString()) : "None"
   }).catch(()=>{}).finally(()=>{})
-  
-  dispatch(updateGameRendererData(ipfsHash, gameFundingData[0], gameFundingData[1], descriptionText.toString()))
+  dispatch(updateGameRendererData(ipfsHash, gameFundingData[0], gameFundingData[1], descriptionText.description))
   dispatch(updateGameRendererLoading(false))
 }
 
