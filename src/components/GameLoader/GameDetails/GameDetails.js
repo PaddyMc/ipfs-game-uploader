@@ -23,8 +23,8 @@ const GameDetails = props => {
             <div className="gameloader-info">
               <div className="gameloader-info-container" key={index}>
                 <div className="gameloader-container">
-                  <div className="gameloader-infoText">Number:</div>
-                  <div>{game.number}</div>
+                  <div className="gameloader-infoText">Name:</div>
+                  <div>{game.name}</div>
                 </div>
                 <div className="gameloader-container">
                   <div className="gameloader-infoText">Location:</div>

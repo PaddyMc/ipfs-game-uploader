@@ -45,7 +45,6 @@ class Upload extends Component {
       captureFile,
       captureImage,
       submitFilesAndCallSmartContract,
-      resetValuesUI,
     } = this.props
 
     return (
@@ -63,7 +62,6 @@ class Upload extends Component {
           captureImage = {captureImage}
           getHash = {getAllHashes}
           numberOfHashes = {numberOfHashes}
-          resetValuesUI = {resetValuesUI}
 
           ipfsHash={ipfsHash}
           ethAddress={ethAddress}

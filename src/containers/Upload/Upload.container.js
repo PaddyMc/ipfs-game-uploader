@@ -40,7 +40,6 @@ const mapDispatchToProps = (dispatch) => {
     captureFile: (event) => dispatch(captureFile(event)),
     captureImage: (event) => dispatch(captureImage(event)),
     submitFilesAndCallSmartContract: (files) => dispatch(uploadToIPFS(files)),
-    resetValuesUI: () => dispatch(resetValuesUI())
   }
 }
 
