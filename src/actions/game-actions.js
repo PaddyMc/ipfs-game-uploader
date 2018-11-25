@@ -54,10 +54,10 @@ const getDescription = async (ipfsHash, ipfs) => {
   return getFileUploaded(description, ipfs);
 }
 
-const getImage = async (ipfsHash, ipfs) => {
-  var image = `${ipfsHash}/imageForGameUploader.png`
-  return getFileUploaded(image, ipfs);
-}
+// const getImage = async (ipfsHash, ipfs) => {
+//   var image = `${ipfsHash}/imageForGameUploader.png`
+//   return getFileUploaded(image, ipfs);
+// }
 
 const getTotalHashes = async () => {
   const [account] = await web3.eth.getAccounts();
@@ -103,13 +103,13 @@ export const getGameData = () => async (dispatch, getState) => {
       }).catch(()=>{
 
       }).finally(()=>{
-        console.log(descriptionText)
         allGames.push({
           number : i / 2,
           gameHash : getAllInfoByPositionData[i-2],
           gameOwner : getAllInfoByPositionData[i-1][0],
           gameFundedData: getAllInfoByPositionData[i-1][1],
           description: descriptionText.description,
+          name: descriptionText.name
         })
       })
     }

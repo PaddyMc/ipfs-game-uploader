@@ -84,12 +84,34 @@ const convertToBuffer = async (reader, folderPath, files) => {
   files.push({path : folderPath, content : buffer})
 };
 
-const removeDuplicateDescription = (files) => {
-  return files
-}
+const validateFiles = (files) => {
+  let validateFiles = false
+  let validateDescription = false;
+  let validateImage = false;
+  let validateIndex = false;
+  for(let file of files) {
+    if(file){
+      const filename = file.path.split('/')[1]
+      if(filename === 'description.txt') {
+        validateDescription = true
+      } else if(filename === 'imageForGameUploader.png') {
+        validateImage = true
+      } else if('index.html'){
+        validateIndex = true
+      }
+    }
+  }
 
-const validateFiles = () => {
+  if(files.length >= 2) {
+    validateFiles = true
+    console.log(validateFiles, "vaildate")
+  }
 
+  if(validateDescription && validateImage && validateIndex && validateFiles) {
+    return true
+  }
+
+  return false
 }
 
 export const uploadToIPFS = (files) => async (dispatch, getState) => {
@@ -99,28 +121,27 @@ export const uploadToIPFS = (files) => async (dispatch, getState) => {
   const image = getState().upload.image
   const accounts = await web3.eth.getAccounts();
   const ethAddress = await gametracker.options.address;
-
-  dispatch(updateEthAddress(ethAddress));
-  if(files && form) {
-    console.log(form)
+  
+  if(files.length > 1 && form && image.length === 1) {
     await convertToBuffer(JSON.stringify(form), `${files[0].path.split('/')[0]}/description.txt`, files)
     files.push(image[0])
-    console.log('Sending from Metamask account: ' + accounts[0]);
 
-    const ipfs = selectIPFSLocation(ipfsURL)
-    const ipfsHash = await ipfs.add(files);
+    if(validateFiles(files)) {
+      const ipfs = selectIPFSLocation(ipfsURL)
+      const ipfsHash = await ipfs.add(files);
 
-    dispatch(updateIPFSHash(ipfsHash[ipfsHash.length-1].hash))
-    console.log(ipfsHash)
-    
-    const result = await gametracker.methods.upload(ipfsHash[ipfsHash.length-1].hash).send({
-                            from: accounts[0] 
-                          })
-    dispatch(updateTransactionHash(result.transactionHash))
-    dispatch(updateTransactionReciept(result.gasUsed, result.blockNumber))
-    dispatch(clearFiles())
+      dispatch(updateIPFSHash(ipfsHash[ipfsHash.length-1].hash))
+      dispatch(updateEthAddress(ethAddress));
+      
+      console.log('Sending from Metamask account: ' + accounts[0]);
+      const result = await gametracker.methods.upload(ipfsHash[ipfsHash.length-1].hash).send({
+                              from: accounts[0] 
+                            })
+      dispatch(updateTransactionHash(result.transactionHash))
+      dispatch(updateTransactionReciept(result.gasUsed, result.blockNumber))
+      dispatch(clearFiles())
+    }
   }
-  
 }
 
 export const getAllHashes = () => async (dispatch, getState) => {
@@ -133,7 +154,6 @@ export const getAllHashes = () => async (dispatch, getState) => {
 
 export const resetValuesUI = () => async (dispatch, getState) => {
   dispatch(resetValues())
-  //dispatch(clearFiles())
 }
 
 export const selectIPFSLocation = (url) => {

@@ -11,7 +11,6 @@ class UploaderActions extends Component {
         captureFile,
         getHash,
         numberOfHashes,
-        resetValuesUI,
         captureImage
       } = this.props
 
@@ -27,9 +26,11 @@ class UploaderActions extends Component {
               Number of Uploads: {numberOfHashes}
             </div>
           </form>
+
           <UploadForm
             captureImage = {captureImage}
-           />
+          />
+
           <form className="" onSubmit={(event) => {event.preventDefault(); onSubmit(files)}}>
             <div className="folderUploader">
               <div className="inputText">Folder:</div>
@@ -44,7 +45,7 @@ class UploaderActions extends Component {
             <div className="finalUploadButtonContainer">
               <Button className="finalUploadButton"
                 type="submit"> 
-                Upload Game to IPFS
+                  Upload Game to IPFS
               </Button>
             </div>
           </form>

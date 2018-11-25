@@ -9,14 +9,14 @@ class App extends Component {
   render() {
     return (
       <div>
-      <ParticlesBackground>
-      </ParticlesBackground>
-      <div className="App">
-        <Helmet title="Game Uploader" />
-          <Router>
-              <Menu />
-          </Router>
-      </div>
+        <ParticlesBackground />
+        
+        <div className="App">
+          <Helmet title="Game Uploader" />
+            <Router>
+                <Menu />
+            </Router>
+        </div>
       </div>
       
     );
