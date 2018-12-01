@@ -3,7 +3,6 @@ import { getAllHashes,
          captureFile,
          uploadToIPFS,
          resetValuesUI,
-         captureImage
        } from '../../actions/actions'
 
 import Upload from './Upload.component'
@@ -18,7 +17,8 @@ const mapStateToProps = (state) => {
     blockNumber,
     transactionHash,
     gasUsed,
-    numberOfHashes 
+    numberOfHashes,
+    folderName
   } = state.upload
 
   return {
@@ -30,15 +30,15 @@ const mapStateToProps = (state) => {
     blockNumber,
     transactionHash,
     gasUsed,
-    numberOfHashes
+    numberOfHashes,
+    folderName
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllHashes: () => dispatch(getAllHashes()),
-    captureFile: (event) => dispatch(captureFile(event)),
-    captureImage: (event) => dispatch(captureImage(event)),
+    captureFile: (event, object) => dispatch(captureFile(event, object)),
     submitFilesAndCallSmartContract: (files) => dispatch(uploadToIPFS(files)),
   }
 }

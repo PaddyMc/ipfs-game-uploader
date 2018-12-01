@@ -68,4 +68,7 @@
 <p>netstat -a -o -n</p>
 <p>Kill ports in use</p>
 <p>kill pid</p>
+<p>Remove all files from IPFS</p>
+<p>ipfs pin ls --type recursive | cut -d' ' -f1 | xargs -n1 ipfs pin rm</p>
+<p>ipfs repo gc</p>
 <hr/>

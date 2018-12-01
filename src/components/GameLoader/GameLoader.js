@@ -10,17 +10,17 @@ class GameLoader extends Component {
       allGames,
       hideGameLoader,
       getAmountFunded,
+      url,
     } = this.props
     return (
       <div>
-        <div>
-          <GameDetails 
-            numberOfGames={numberOfGames} 
-            allGames={allGames}
-            hideGameLoader = {hideGameLoader}
-            getAmountFunded = {getAmountFunded}
-          />
-        </div>
+        <GameDetails 
+          numberOfGames={numberOfGames} 
+          allGames={allGames}
+          hideGameLoader = {hideGameLoader}
+          getAmountFunded = {getAmountFunded}
+          url = {url}
+        />
       </div>
     );
   }

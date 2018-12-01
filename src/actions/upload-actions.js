@@ -19,6 +19,11 @@ const updateImage = (image) => ({
   image
 })
 
+const updateDocument = (document) => ({
+  type: 'ADD_DOCUMENT',
+  document
+})
+
 const updateEthAddress = (ethAddress) => ({
   type: 'ETH_ADDRESS',
   ethAddress
@@ -48,37 +53,12 @@ const clearFiles = () => ({
   type: 'CLEAR_FILES'
 })
 
+const updateFolderName = (folderName) => ({
+  type: 'ADD_FOLDER_NAME',
+  folderName
+})
+
 // Functions
-export const captureFile = (event) => async (dispatch, getState) => {
-  event.stopPropagation()
-  event.preventDefault()
-  const folderPath = getState().upload.numberOfHashes
-  var files = []
-
-  for (let file of event.target.files) {
-    let reader = new window.FileReader()
-    let relativePath = `${folderPath}/${file.webkitRelativePath.split('/')[1]}`
-    reader.readAsArrayBuffer(file)
-    reader.onloadend = () => convertToBuffer(reader.result, relativePath, files)
-  }
-  dispatch(updateFiles(files))
-};
-
-export const captureImage = (event) => async (dispatch, getState) => {
-  event.stopPropagation()
-  event.preventDefault()
-  const folderPath = getState().upload.numberOfHashes
-  var files = []
-
-  for (let file of event.target.files) {
-    let reader = new window.FileReader()
-    let relativePath = `${folderPath}/imageForGameUploader.png`
-    reader.readAsArrayBuffer(file)
-    reader.onloadend = () => convertToBuffer(reader.result, relativePath, files)
-  }
-  dispatch(updateImage(files))
-};
-
 const convertToBuffer = async (reader, folderPath, files) => {
   const buffer = await Buffer.from(reader);
   files.push({path : folderPath, content : buffer})
@@ -104,7 +84,6 @@ const validateFiles = (files) => {
 
   if(files.length >= 2) {
     validateFiles = true
-    console.log(validateFiles, "vaildate")
   }
 
   if(validateDescription && validateImage && validateIndex && validateFiles) {
@@ -114,22 +93,73 @@ const validateFiles = (files) => {
   return false
 }
 
+const getFolderPath = (folderPath) => {
+  if(folderPath === "") {
+    console.log(new Date().getTime())
+    return new Date().getTime()
+  } else {
+    return folderPath
+  }
+}
+
+// Exports
+export const captureFile = (event, object) => async (dispatch, getState) => {
+  event.stopPropagation()
+  event.preventDefault()
+  let folderPath = getState().upload.folderName
+  dispatch(updateFolderName(getFolderPath(folderPath)))
+  folderPath = getState().upload.folderName
+  var files = []
+
+  for (let file of event.target.files) {
+    let reader = new window.FileReader()
+    let relativePath
+    if(object === "folder") {
+      let constructedFileStructure = file.webkitRelativePath.split('/')
+      if(constructedFileStructure.length > 2) {
+        constructedFileStructure.shift()
+        relativePath = `${folderPath}/${constructedFileStructure}`.replace(/,/g, '/')
+      } else {
+        relativePath = `${folderPath}/${file.webkitRelativePath.split('/')[1]}`
+      }
+    } else if(object === "image") {
+      relativePath = `${folderPath}/imageForGameUploader.png`
+    } else if(object === "instructions") {
+      relativePath = `${folderPath}/introDocument.md`
+    }
+    reader.readAsArrayBuffer(file)
+    reader.onloadend = () => convertToBuffer(reader.result, relativePath, files)
+  }
+
+  if(object === "folder") {
+    dispatch(updateFiles(files))
+  } else if(object === "image") {
+    dispatch(updateImage(files))
+  } else if(object === "instructions") {
+    dispatch(updateDocument(files))
+  }
+};
+
 export const uploadToIPFS = (files) => async (dispatch, getState) => {
   dispatch(resetValues())
   const form = getState().form.contact.values
   const ipfsURL = getState().game.gameRenderer.url
   const image = getState().upload.image
+  const document = getState().upload.document
   const accounts = await web3.eth.getAccounts();
   const ethAddress = await gametracker.options.address;
+  
   
   if(files.length > 1 && form && image.length === 1) {
     await convertToBuffer(JSON.stringify(form), `${files[0].path.split('/')[0]}/description.txt`, files)
     files.push(image[0])
+    files.push(document[0])
 
+    console.log(files)
     if(validateFiles(files)) {
       const ipfs = selectIPFSLocation(ipfsURL)
-      const ipfsHash = await ipfs.add(files);
-
+      let ipfsHash = await ipfs.add(files)
+      
       dispatch(updateIPFSHash(ipfsHash[ipfsHash.length-1].hash))
       dispatch(updateEthAddress(ethAddress));
       
@@ -140,7 +170,7 @@ export const uploadToIPFS = (files) => async (dispatch, getState) => {
       dispatch(updateTransactionHash(result.transactionHash))
       dispatch(updateTransactionReciept(result.gasUsed, result.blockNumber))
       dispatch(clearFiles())
-    }
+    } 
   }
 }
 
@@ -159,9 +189,9 @@ export const resetValuesUI = () => async (dispatch, getState) => {
 export const selectIPFSLocation = (url) => {
   switch(url) {
     case ipfsInfura:
-      return  new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+      return new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
     case ipfsLocal:
-      return new IPFS('localhost', '5001', { protocol:'http' });
+      return new IPFS({ host: 'localhost',  port: 5001,  protocol: 'http' });
     default:
       break
   }
@@ -175,9 +205,6 @@ export const validate = values => {
   if (!values.description) {
     errors.description = 'Required'
   } 
-  if (!values.instructions) {
-    errors.instructions = 'Required'
-  }
   return errors
 }
 
