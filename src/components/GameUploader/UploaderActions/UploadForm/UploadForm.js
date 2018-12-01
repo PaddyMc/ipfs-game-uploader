@@ -5,22 +5,30 @@ import'../UploaderActions.css';
 
 let UploadForm = props => {
   const {
-    captureImage 
+    captureFile
   } = props
 
   return (
     <div className="allInputsContainer">
       <Field label="Name" className="input" name="name" component={renderField} type="text" />
       <Field label="Description" className="input" name="description" component={renderField} type="text" />
-      <Field label="Instructions" className="input" name="instructions" component={renderTextArea} type="textarea" />
+      <div className="folderUploader">
+        <div className="inputText">Intro Document:</div>
+        <Field 
+          label="Document" 
+          classNameOuter="imageFile" 
+          name="Document" 
+          captureImage = {(event) => captureFile(event, "instructions")}
+          component={renderFile} 
+          type="file" />
+      </div>
       <div className="folderUploader">
         <div className="inputText">Image:</div>
         <Field 
           label="Image" 
           classNameOuter="imageFile" 
-          lassName="imageFile" 
           name="Image" 
-          captureImage = {(event) => captureImage(event)}
+          captureImage = {(event) => captureFile(event, "image")}
           component={renderFile} 
           type="file" />
       </div>
@@ -57,20 +65,6 @@ const renderFile = ({
         ((error && <span>{error}</span>) ||
           (warning && <span>{warning}</span>))}
     </div>
-)
-
-const renderTextArea = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning }
-}) => (
-  <div className="inputContainer">
-      <textarea className="input" {...input} placeholder={label} type={type} />
-      {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
-  </div>
 )
 
 UploadForm = reduxForm({

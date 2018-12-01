@@ -14,6 +14,7 @@ class Upload extends Component {
     welcomeText: PropTypes.string,
     ipfsHash: PropTypes.string,
     files: PropTypes.array,
+    folderName: PropTypes.string,
     ethAddress: PropTypes.string,
     blockNumber: PropTypes.number,
     transactionHash: PropTypes.string,
@@ -43,8 +44,8 @@ class Upload extends Component {
       numberOfHashes,
       getAllHashes,
       captureFile,
-      captureImage,
       submitFilesAndCallSmartContract,
+      folderName
     } = this.props
 
     return (
@@ -56,18 +57,18 @@ class Upload extends Component {
           welcomeText = {welcomeText}
         />
         <GameUploader 
-          files={files}
-          onSubmit={submitFilesAndCallSmartContract}
+          files = {files}
+          onSubmit = {submitFilesAndCallSmartContract}
           captureFile = {captureFile}
-          captureImage = {captureImage}
           getHash = {getAllHashes}
           numberOfHashes = {numberOfHashes}
+          folderName = {folderName}
 
-          ipfsHash={ipfsHash}
-          ethAddress={ethAddress}
-          transactionHash={transactionHash}
-          blockNumber={blockNumber}
-          gasUsed={gasUsed}
+          ipfsHash = {ipfsHash}
+          ethAddress = {ethAddress}
+          transactionHash = {transactionHash}
+          blockNumber = {blockNumber}
+          gasUsed = {gasUsed}
         />
       </div>
     );

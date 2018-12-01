@@ -16,6 +16,7 @@ class Game extends Component {
     numberOfGames: PropTypes.string,
     allGames: PropTypes.array,
     loaded: PropTypes.bool,
+    url: PropTypes.string,
     updateGameData: PropTypes.func,
     hideGameLoader: PropTypes.func,
     getAmountFunded: PropTypes.func,
@@ -34,6 +35,7 @@ class Game extends Component {
       numberOfGames,
       allGames,
       loaded,
+      url,
       hideGameLoader,
       getAmountFunded,
     } = this.props
@@ -52,6 +54,7 @@ class Game extends Component {
               <GameLoader
                 numberOfGames={numberOfGames}
                 allGames={allGames}
+                url = {url}
 
                 //Renderer
                 hideGameLoader={hideGameLoader}

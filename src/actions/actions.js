@@ -15,7 +15,6 @@ import { getAllHashes,
          uploadToIPFS,
          resetValuesUI,
          validate,
-         captureImage,
        } from './upload-actions'
 
 export {
@@ -42,5 +41,4 @@ export {
   uploadToIPFS,
   resetValuesUI,
   validate,
-  captureImage
 }

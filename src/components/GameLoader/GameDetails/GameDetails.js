@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './GameDetails.css';
 
@@ -7,6 +7,7 @@ const GameDetails = props => {
     numberOfGames,
     allGames,
     hideGameLoader,
+    url
   } = props
 
   return (
@@ -19,9 +20,9 @@ const GameDetails = props => {
       {
         allGames.map((game, index) => {
           let output = 
-          <div>
+          <div key={index}>
             <div className="gameloader-info">
-              <div className="gameloader-info-container" key={index}>
+              <div className="gameloader-info-container" >
                 <div className="gameloader-container">
                   <div className="gameloader-infoText">Name:</div>
                   <div>{game.name}</div>
@@ -42,7 +43,7 @@ const GameDetails = props => {
                 </div>
               </div>
               <div className="gameloader-image">
-                <img src={`https://gateway.ipfs.io/ipfs/${game.gameHash}/imageForGameUploader.png`} alt="Smiley face" height="64" width="64"></img>
+                <img src={`${url}${game.gameHash}/imageForGameUploader.png`} alt="Smiley face" height="64" width="64"></img>
               </div>
             </div>
             <hr/>

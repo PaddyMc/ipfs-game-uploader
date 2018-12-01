@@ -12,7 +12,9 @@ const upload = (state, action) => {
     transactionHash:'',
     gasUsed: 0,
     numberOfHashes: '0',
-    image : []
+    image : [],
+    document : [],
+    folderName: `${new Date().getTime()}`
   }, state)
 
   switch (action.type) {
@@ -31,10 +33,22 @@ const upload = (state, action) => {
         image: action.image
       })
       return newState
+    case 'ADD_DOCUMENT':
+      newState = extend(uploadState, {
+        document: action.document
+      })
+      return newState
+    case 'ADD_FOLDER_NAME':
+      newState = extend(uploadState, {
+        folderName: action.folderName
+      })
+      return newState
     case 'CLEAR_FILES':
       newState = extend(uploadState, {
         files: [],
-        image: []
+        image: [],
+        document: [],
+        folderName: ""
       })
       return newState
     case 'ETH_ADDRESS':

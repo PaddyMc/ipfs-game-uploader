@@ -13,7 +13,10 @@ const mapStateToProps = (state) => {
     numberOfGames,
     allGames,
     loaded,
+    gameRenderer
   } = state.game
+
+  const url = gameRenderer.url
 
   return {
     intro,
@@ -22,6 +25,7 @@ const mapStateToProps = (state) => {
     numberOfGames,
     allGames,
     loaded,
+    url,
   }
 }
 
