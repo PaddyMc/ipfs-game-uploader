@@ -13,6 +13,9 @@ const GameUploader = props => {
     getHash,
     numberOfHashes,
     folderName,
+    imageName,
+    documentName,
+    numberOfFiles,
     ipfsHash,
     ethAddress,
     transactionHash,
@@ -31,6 +34,9 @@ const GameUploader = props => {
           getHash = {getHash}
           numberOfHashes = {numberOfHashes}
           folderName = {folderName}
+          imageName = {imageName}
+          documentName = {documentName}
+          numberOfFiles = {numberOfFiles}
         />
         <hr/>
         <UploaderTable 

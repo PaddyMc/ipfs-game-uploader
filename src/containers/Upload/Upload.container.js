@@ -18,7 +18,10 @@ const mapStateToProps = (state) => {
     transactionHash,
     gasUsed,
     numberOfHashes,
-    folderName
+    folderName,
+    imageName,
+    documentName,
+    numberOfFiles,
   } = state.upload
 
   return {
@@ -31,7 +34,10 @@ const mapStateToProps = (state) => {
     transactionHash,
     gasUsed,
     numberOfHashes,
-    folderName
+    folderName,
+    imageName,
+    documentName,
+    numberOfFiles
   }
 }
 

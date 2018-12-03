@@ -4,7 +4,8 @@ import './UserGames.css';
 
 const UserGames = props => {
   const {
-    gameLocations
+    gameLocations,
+    hideGameLoader
   } = props
 
   return (
@@ -16,7 +17,7 @@ const UserGames = props => {
         gameLocations.map((game, index) => {
           let output = 
             <div key={index}>
-              <Link className="gameloader-link" to={ { pathname: `/game/${game}`, state: game } }>
+              <Link className="gameloader-link" onClick={() => hideGameLoader(true)} to={ { pathname: `/game/${game}`, state: game } }>
                 {game}
               </Link>
             </div> 

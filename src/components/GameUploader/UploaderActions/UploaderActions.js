@@ -9,7 +9,10 @@ const UploaderActions = props => {
     onSubmit,
     captureFile,
     numberOfHashes,
-    folderName
+    folderName,
+    imageName,
+    documentName,
+    numberOfFiles
   } = props
 
   return (
@@ -17,30 +20,23 @@ const UploaderActions = props => {
       <div className="upload-text-element">
         Number of Uploads: {numberOfHashes}
       </div>
-      <hr />
+    <hr />
       <div className="uploaderActions">
         <div className="upload-text-element"><b>Upload Form</b></div>
         <UploadForm
           captureFile = {captureFile}
+          folderName = {folderName}
+          imageName = {imageName}
+          documentName = {documentName}
+          numberOfFiles = {numberOfFiles}
         />
-        <form className="" onSubmit={(event) => {event.preventDefault(); onSubmit(files)}}>
-          <div className="folderUploader">
-            <div className="inputText">Folder:</div>
-            <input
-              name = "Submit Folder"
-              type = "file"
-              onChange = {(event) => { captureFile(event, "folder") }}
-              webkitdirectory={folderName}
-              directory={folderName}
-            />
-          </div>
-          <div className="finalUploadButtonContainer">
-            <Button className="button"
-              type="submit"> 
-                Upload Game
-            </Button>
-          </div>
-        </form>
+        <div className="finalUploadButtonContainer">
+          <Button 
+            className="button"
+            onClick={() => onSubmit(files)}> 
+              Submit Game
+          </Button>
+        </div>
       </div>
     </div>
     );

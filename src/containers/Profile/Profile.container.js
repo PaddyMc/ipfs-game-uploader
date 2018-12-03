@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
-import { getProfileData } from '../../actions/actions'
+import { getProfileData,
+         hideGameLoader
+       } from '../../actions/actions'
 
 import Profile from './Profile.component.js'
 
@@ -23,7 +25,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateProfileData: () => dispatch(getProfileData())
+    updateProfileData: () => dispatch(getProfileData()),
+    hideGameLoader: (visibility) => dispatch(hideGameLoader(visibility))
   }
 }
 

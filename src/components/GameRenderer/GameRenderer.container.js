@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { hideGameLoader,
          getGameRendererData,
-         hideGameRenderer,
          fundUploader,
          sendRequestToBuy
        } from '../../actions/actions'

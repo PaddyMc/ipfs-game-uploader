@@ -16,6 +16,7 @@ class Profile extends Component {
     fundingData: PropTypes.string,
     gameLocations: PropTypes.array,
     updateProfileData: PropTypes.func,
+    hideGameLoader: PropTypes.func,
   }
 
   componentWillMount = () => {
@@ -33,6 +34,7 @@ class Profile extends Component {
       numberOfGames,
       fundingData,
       gameLocations,
+      hideGameLoader
     } = this.props
     return (
       <div>
@@ -46,6 +48,7 @@ class Profile extends Component {
           numberOfGames={numberOfGames}
           fundingData={fundingData}
           gameLocations={gameLocations}
+          hideGameLoader={hideGameLoader}
         />
       </div>
     );

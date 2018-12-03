@@ -15,6 +15,8 @@ class Upload extends Component {
     ipfsHash: PropTypes.string,
     files: PropTypes.array,
     folderName: PropTypes.string,
+    imageName: PropTypes.string,
+    documentName: PropTypes.string,
     ethAddress: PropTypes.string,
     blockNumber: PropTypes.number,
     transactionHash: PropTypes.string,
@@ -45,7 +47,10 @@ class Upload extends Component {
       getAllHashes,
       captureFile,
       submitFilesAndCallSmartContract,
-      folderName
+      folderName,
+      imageName,
+      documentName,
+      numberOfFiles
     } = this.props
 
     return (
@@ -63,6 +68,9 @@ class Upload extends Component {
           getHash = {getAllHashes}
           numberOfHashes = {numberOfHashes}
           folderName = {folderName}
+          imageName = {imageName}
+          documentName = {documentName}
+          numberOfFiles = {numberOfFiles}
 
           ipfsHash = {ipfsHash}
           ethAddress = {ethAddress}

@@ -54,11 +54,6 @@ const getDescription = async (ipfsHash, ipfs) => {
   return getFileUploaded(description, ipfs);
 }
 
-// const getImage = async (ipfsHash, ipfs) => {
-//   var image = `${ipfsHash}/imageForGameUploader.png`
-//   return getFileUploaded(image, ipfs);
-// }
-
 const getTotalHashes = async () => {
   const [account] = await web3.eth.getAccounts();
   return gametracker.methods.getNumberOfHashes().call({
@@ -127,13 +122,8 @@ export const hideGameLoader = (visibility) => (dispatch) => {
   dispatch(updateGameRendererLoading(visibility))
 }
 
-export const hideGameRenderer = (visibility) => (dispatch) => {
-  dispatch(updateGameRendererLoading(visibility))
-}
-
 // Game Renderer Actions
 export const getGameRendererData = (ipfsHash) => async (dispatch, getState) => {
-  hideGameLoader(true)
   const ipfsURL = getState().game.gameRenderer.url
   const ipfs = selectIPFSLocation(ipfsURL)
   const [accounts] = await web3.eth.getAccounts();

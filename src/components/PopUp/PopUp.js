@@ -9,31 +9,39 @@ const contentStyle = {
   borderRadius: "15px 15px 15px 15px"
 };
 
-const CustomPopUp = props => (
-  <Popup 
-    trigger={<button className="button">{props.buttonText}</button>} 
-    modal
-    contentStyle={contentStyle}
-  >
-  {close => (
-    <div className="modal-container">
-      <div className="header"> {props.buttonText} </div>
-      <hr />
-      <props.Content
-        info={props.info}
-      />
-      <div className="actions">
-        <button
-          className="button close-button"
-          onClick={() => {
-            close();
-          }}>
-          Close PopUp
-        </button>
+const CustomPopUp = props => {
+  const {
+    buttonText,
+    info,
+    Content
+  } = props
+  
+  return (
+    <Popup 
+      trigger={<button className="button">{buttonText}</button>} 
+      modal
+      contentStyle={contentStyle}
+    >
+    {close => (
+      <div className="modal-container">
+        <div className="header"> {buttonText} </div>
+        <hr />
+        <Content
+          info={info}
+        />
+        <div className="actions">
+          <button
+            className="button close-button"
+            onClick={() => {
+              close();
+            }}>
+            Close PopUp
+          </button>
+        </div>
       </div>
-    </div>
-  )}
-  </Popup>
-);
+    )}
+    </Popup>
+  );
+};
 
 export default CustomPopUp;
