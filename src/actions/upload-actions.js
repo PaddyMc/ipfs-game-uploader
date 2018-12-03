@@ -9,9 +9,10 @@ const updateNumberOfHashes = (numberOfHashes) => ({
   numberOfHashes
 })
 
-const updateFiles = (files) => ({
+const updateFiles = (files, fileCount) => ({
   type: 'ADD_FILES',
-  files
+  files,
+  fileCount
 })
 
 const updateImage = (image) => ({
@@ -56,6 +57,16 @@ const clearFiles = () => ({
 const updateFolderName = (folderName) => ({
   type: 'ADD_FOLDER_NAME',
   folderName
+})
+
+const updateDocumentName = (documentName) => ({
+  type: 'UPDATE_DOCUMENT_NAME',
+  documentName
+})
+
+const updateImageName = (imageName) => ({
+  type: 'UPDATE_IMAGE_NAME',
+  imageName
 })
 
 // Functions
@@ -110,6 +121,7 @@ export const captureFile = (event, object) => async (dispatch, getState) => {
   dispatch(updateFolderName(getFolderPath(folderPath)))
   folderPath = getState().upload.folderName
   var files = []
+  var fileCount = 0
 
   for (let file of event.target.files) {
     let reader = new window.FileReader()
@@ -120,19 +132,23 @@ export const captureFile = (event, object) => async (dispatch, getState) => {
         constructedFileStructure.shift()
         relativePath = `${folderPath}/${constructedFileStructure}`.replace(/,/g, '/')
       } else {
-        relativePath = `${folderPath}/${file.webkitRelativePath.split('/')[1]}`
+        relativePath = `${folderPath}/${constructedFileStructure[1]}`
       }
-    } else if(object === "image") {
-      relativePath = `${folderPath}/imageForGameUploader.png`
     } else if(object === "instructions") {
       relativePath = `${folderPath}/introDocument.md`
-    }
+      dispatch(updateDocumentName(file.name))
+    } else if(object === "image") {
+      relativePath = `${folderPath}/imageForGameUploader.png`
+      dispatch(updateImageName(file.name))
+    } 
     reader.readAsArrayBuffer(file)
     reader.onloadend = () => convertToBuffer(reader.result, relativePath, files)
+    fileCount++
   }
 
   if(object === "folder") {
-    dispatch(updateFiles(files))
+    console.log(fileCount)
+    dispatch(updateFiles(files, fileCount))
   } else if(object === "image") {
     dispatch(updateImage(files))
   } else if(object === "instructions") {

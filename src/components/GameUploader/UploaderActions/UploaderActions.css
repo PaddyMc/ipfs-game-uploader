@@ -26,6 +26,7 @@
 .imageFile {
   align-items: baseline;
   display: flex;
+  width: 40%;
 }
 
 .input {
@@ -42,4 +43,20 @@
 .inputText {
   width: 20%;
   text-align: left; 
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
+
+.upload-btn-wrapper:hover > .button {
+  border-color: #2980b9;
 }

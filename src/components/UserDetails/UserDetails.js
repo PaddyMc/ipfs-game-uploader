@@ -9,7 +9,8 @@ const UserDetails = props => {
   const {
     numberOfGames,
     fundingData,
-    gameLocations
+    gameLocations,
+    hideGameLoader
   } = props
 
   return (
@@ -20,6 +21,7 @@ const UserDetails = props => {
       />
       <UserGames 
         gameLocations={gameLocations} 
+        hideGameLoader={hideGameLoader}
       />
     </div>
   );

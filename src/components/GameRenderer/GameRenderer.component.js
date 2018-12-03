@@ -26,8 +26,11 @@ class GameRenderer extends Component {
   componentWillMount = async () => {
     const {
       getGameRendererData,
+      hideGameLoader,
       location
     } = this.props
+
+    hideGameLoader(true)
     getGameRendererData(location.pathname.split("/")[2])
   }
 
@@ -35,6 +38,7 @@ class GameRenderer extends Component {
     const {
       hideGameLoader
     } = this.props
+    
     hideGameLoader(false)
   }
 
@@ -70,6 +74,7 @@ class GameRenderer extends Component {
                     gameOwner={gameOwner}
                     fundUploader={fundUploader}
                     sendRequestToBuy={sendRequestToBuy}
+                    url={url}
                   />
                 </div>
               </div>

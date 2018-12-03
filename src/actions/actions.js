@@ -3,7 +3,6 @@ import { getFunderData } from './funders-actions'
 
 import { getGameData, 
          hideGameLoader,
-         hideGameRenderer,
          fundUploader,
          sendRequestToBuy,
          getGameRendererData,
@@ -33,7 +32,6 @@ export {
   getGameRendererData,
   fundUploader,
   sendRequestToBuy,
-  hideGameRenderer,
   
   // Upload Functions
   getAllHashes,
