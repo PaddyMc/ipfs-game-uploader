@@ -2,35 +2,42 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import './GameActions.css';
 
-class GameActions extends Component {
-  fundUploader = (event) => {
-    event.preventDefault()
-    this.props.fundUploader(this.props.ipfsHash);
-  }
+const GameActions = props => {
+  const {
+    ipfsHash,
+    gameOwner,
+    fundUploader,
+    sendRequestToBuy
+  } = props
 
-  sendRequestToBuy = (event) => {
-    event.preventDefault()
-    this.props.sendRequestToBuy(this.props.gameOwner);
-  }
-
-  render() {
-    return (
-      <div className="gameloader-container">
-        <form className="gamerenderer-button" onSubmit={this.fundUploader}>
-          <Button 
-            type="submit"> 
+  return (
+    <div className="gameloader-container">
+      <form 
+        className="gamerenderer-button" 
+        onSubmit={(event) => {
+          event.preventDefault()
+          fundUploader(ipfsHash)
+        }}>
+        <Button 
+          className="button"
+          type="submit"> 
             Fund Game Uploader
-          </Button>
-        </form>
-        <form className="gamerenderer-button" onSubmit={this.sendRequestToBuy}>
-          <Button 
-            type="submit"> 
+        </Button>
+      </form>
+      <form 
+        className="gamerenderer-button" 
+        onSubmit={(event) => {
+          event.preventDefault()
+          sendRequestToBuy(gameOwner)
+        }}>
+        <Button 
+          className="button"
+          type="submit"> 
             Request To Buy
-          </Button>
-        </form>
-      </div>
-    );
-  }
+        </Button>
+      </form>
+    </div>
+  );
 }
 
 export default GameActions;

@@ -15,3 +15,28 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.button {
+  color: #000000;
+  cursor: pointer;
+  padding: 0px 30px;
+  display: inline-block;
+  margin: 10px 15px;
+  text-transform: uppercase;
+  line-height: 2em;
+  letter-spacing: 1.5px;
+  font-size: 1em;
+  outline: none;
+  position: relative;
+  font-size: 14px;
+  border: 3px solid #cfcece;
+  background-color: #ffffff;
+  border-radius: 15px 15px 15px 15px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.button:hover,
+.button.hover {
+  border-color: #2980b9;
+}

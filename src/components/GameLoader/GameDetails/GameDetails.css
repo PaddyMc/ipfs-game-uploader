@@ -1,6 +1,8 @@
 .gameloader-container {
   display: flex;
- 
+  overflow: hidden;
+  text-overflow: clip;
+  align-items: center;
 }
 
 .gameloader-info {
@@ -26,4 +28,8 @@
   width: 15%;
   margin: auto;
 
+}
+
+.center-button {
+  margin-top: 1.25%;
 }

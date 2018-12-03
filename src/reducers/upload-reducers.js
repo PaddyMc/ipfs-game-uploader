@@ -4,7 +4,7 @@ let newState
 const upload = (state, action) => {
   var uploadState = extend({
     intro: "Game Uploader",
-    welcomeText: "Choose folder to send to IPFS; the folder must contain a runnable index.html",
+    welcomeText: "Upload a Game; the folder must contain a runnable index.html",
     ipfsHash: '',
     files:[],
     ethAddress:'',

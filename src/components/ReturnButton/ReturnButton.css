@@ -2,10 +2,13 @@
 	display: block;
 	color: black;
 	padding: 16px;
-    text-decoration: none;
-    cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
 
-    width: 50px;
+  width: 50px;
+  border-radius: 15px 15px 15px 15px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .returnbutton.active {
@@ -14,6 +17,6 @@
 }
 
 .returnbutton:hover:not(.active) {
-  background-color: #555;
+  background-color: #2980b9;
   color: white;
 }

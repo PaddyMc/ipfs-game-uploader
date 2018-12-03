@@ -1,24 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './UserDetails.css';
 import UserInfo from './UserInfo/UserInfo';
 import UserGames from './UserGames/UserGames';
 
 
-class UserDetails extends Component {
-  render() {
-    return (
-      <div className="">
-        <UserInfo 
-          numberOfGames={this.props.numberOfGames}
-          fundingData={this.props.fundingData}
-        />
-        <UserGames 
-          gameLocations={this.props.gameLocations} 
-        />
-      </div>
-    );
-  }
+const UserDetails = props => {
+  const {
+    numberOfGames,
+    fundingData,
+    gameLocations
+  } = props
+
+  return (
+    <div className="">
+      <UserInfo 
+        numberOfGames={numberOfGames}
+        fundingData={fundingData}
+      />
+      <UserGames 
+        gameLocations={gameLocations} 
+      />
+    </div>
+  );
 }
 
 export default UserDetails;

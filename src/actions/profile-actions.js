@@ -48,7 +48,6 @@ export const getProfileData = () => async (dispatch, getState) => {
   dispatch(updateNumberOfGames(numberOfGames))
 
   const fundingData = await getFundingDataFromSmartContract()
-  
   dispatch(updateFundingData(web3.utils.fromWei(fundingData , "ether")))
 
   const gameData = await getGameDataFromSmartContract(numberOfGames)

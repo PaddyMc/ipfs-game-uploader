@@ -51,12 +51,10 @@ const renderField = ({
 )
 
 const renderFile = ({
-  input,
   label,
   type,
   captureImage,
   classNameOuter,
-  classNameInner,
   meta: { touched, error, warning }
 }) => (
     <div className={classNameOuter}>

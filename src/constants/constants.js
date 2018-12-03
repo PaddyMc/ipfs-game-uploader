@@ -1,7 +1,7 @@
 const MAINNET = ""
 const ROPSTEN = ""
 const ROVAN   = ""
-const RINKEBY = "0xecd03fc1f435ceaa3bf989f3532639e13c5656c7"
+const RINKEBY = "0x1af8b516e51396cf5b60d7cb71d92b86e22fb0bb"
 const TEST    = null
 
 const ipfsInfura = "https://ipfs.infura.io/ipfs/"

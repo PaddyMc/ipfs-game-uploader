@@ -1,12 +1,15 @@
 .funderDetailsHeader {
   display: flex;
 }
+
 .fullSize {
   width: 100% !important;
- }
+}
+
 .halfSize {
   width: 50% !important;
 }
+
 .topFunderText {
   
 }
