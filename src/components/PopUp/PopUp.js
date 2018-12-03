@@ -33,27 +33,6 @@ const CustomPopUp = props => (
       </div>
     </div>
   )}
-    
-
-    {/* {close => (
-      <div className="modal">
-        <div className="header"> {props.buttonText} </div>
-        <hr />
-        <props.Content
-          info={props.info}
-        />
-        <div className="actions">
-          <button
-            className="button close-button"
-            onClick={() => {
-              close();
-            }}
-          >
-            Close PopUp
-          </button>
-        </div>
-      </div>
-    )} */}
   </Popup>
 );
 
