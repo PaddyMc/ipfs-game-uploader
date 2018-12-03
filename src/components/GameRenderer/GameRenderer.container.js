@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getGameRendererData: (ipfsHash) => dispatch(getGameRendererData(ipfsHash)),
     hideGameLoader: (visibility) => dispatch(hideGameLoader(visibility)),
-    hideGameRenderer: (visibility) => dispatch(hideGameRenderer(visibility)),
     
     fundUploader: fundUploader,
     sendRequestToBuy: sendRequestToBuy,

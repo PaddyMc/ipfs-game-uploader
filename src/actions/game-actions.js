@@ -124,6 +124,7 @@ export const getGameData = () => async (dispatch, getState) => {
 
 export const hideGameLoader = (visibility) => (dispatch) => {
   dispatch(gameLoaderVisible(visibility))
+  dispatch(updateGameRendererLoading(visibility))
 }
 
 export const hideGameRenderer = (visibility) => (dispatch) => {
@@ -132,6 +133,7 @@ export const hideGameRenderer = (visibility) => (dispatch) => {
 
 // Game Renderer Actions
 export const getGameRendererData = (ipfsHash) => async (dispatch, getState) => {
+  hideGameLoader(true)
   const ipfsURL = getState().game.gameRenderer.url
   const ipfs = selectIPFSLocation(ipfsURL)
   const [accounts] = await web3.eth.getAccounts();

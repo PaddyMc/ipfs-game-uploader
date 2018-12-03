@@ -1,31 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './UserGames.css';
 
-class UserGames extends Component {
-  render() {
-    const {
-      gameLocations
-    } = this.props
-    return (
+const UserGames = props => {
+  const {
+    gameLocations
+  } = props
+
+  return (
+    <div>
       <div>
-        <div>
-          Games:
-        </div>
-        {
-          gameLocations.map((game, index) => {
-            let output = 
-              <div key={index}>
-                <Link className="gameloader-link" to={ { pathname: `/game/${game}`, state: game } }>
-                  {game}
-                </Link>
-              </div> 
-            return output
-          })
-        }
+        Games:
       </div>
-    );
-  }
+      {
+        gameLocations.map((game, index) => {
+          let output = 
+            <div key={index}>
+              <Link className="gameloader-link" to={ { pathname: `/game/${game}`, state: game } }>
+                {game}
+              </Link>
+            </div> 
+          return output
+        })
+      }
+    </div>
+  );
 }
 
 export default UserGames;

@@ -142,10 +142,11 @@ export const captureFile = (event, object) => async (dispatch, getState) => {
 
 export const uploadToIPFS = (files) => async (dispatch, getState) => {
   dispatch(resetValues())
-  const form = getState().form.contact.values
-  const ipfsURL = getState().game.gameRenderer.url
-  const image = getState().upload.image
-  const document = getState().upload.document
+  const state = getState()
+  const form = state.form.contact.values
+  const ipfsURL = state.game.gameRenderer.url
+  const image = state.upload.image
+  const document = state.upload.document
   const accounts = await web3.eth.getAccounts();
   const ethAddress = await gametracker.options.address;
   
@@ -155,7 +156,6 @@ export const uploadToIPFS = (files) => async (dispatch, getState) => {
     files.push(image[0])
     files.push(document[0])
 
-    console.log(files)
     if(validateFiles(files)) {
       const ipfs = selectIPFSLocation(ipfsURL)
       let ipfsHash = await ipfs.add(files)
@@ -207,12 +207,3 @@ export const validate = values => {
   } 
   return errors
 }
-
-// export const warn = values => {
-//   const warnings = {}
-//   if (values.age < 19) {
-//     warnings.age = 'Hmm, you seem a bit young...'
-//   }
-//   return warnings
-// }
-

@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './UserInfo.css';
 
-class UserInfo extends Component {
-  render() {
-    const {
-      numberOfGames,
-      fundingData
-    } = this.props
-    
-    return (
-      <div>
+const UserInfo = props => {
+  const {
+    numberOfGames,
+    fundingData
+  } = props
+  
+  return (
+    <div>
       <div>
         <div>
           Number of Games:
@@ -26,9 +25,8 @@ class UserInfo extends Component {
           {fundingData} Eth
         </div>
       </div>
-      </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default UserInfo;

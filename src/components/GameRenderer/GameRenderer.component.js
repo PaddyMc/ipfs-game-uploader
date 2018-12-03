@@ -18,7 +18,6 @@ class GameRenderer extends Component {
     getGameRendererData: PropTypes.func,
     gameRendererLoading: PropTypes.bool,
     hideGameLoader: PropTypes.func,
-    hideGameRenderer: PropTypes.func,
     getAmountFunded: PropTypes.func,
     fundUploader: PropTypes.func,
     sendRequestToBuy: PropTypes.func,
@@ -26,22 +25,16 @@ class GameRenderer extends Component {
   
   componentWillMount = async () => {
     const {
-      hideGameLoader,
       getGameRendererData,
-      hideGameRenderer,
       location
     } = this.props
-    hideGameRenderer(true)
-    hideGameLoader(true)
     getGameRendererData(location.pathname.split("/")[2])
   }
 
   componentWillUnmount = () => {
     const {
-      hideGameLoader,
-      hideGameRenderer
+      hideGameLoader
     } = this.props
-    hideGameRenderer(false)
     hideGameLoader(false)
   }
 

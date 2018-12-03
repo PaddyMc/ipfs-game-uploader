@@ -2,10 +2,14 @@
   margin-left: 15%;
   margin-right: 15%;
 }
+.upload-text-element {
+  display: table;
+  padding: 5px;
+}
 
 .finalUploadButton {
-  width: 40%;
-  height: 25px;
+  width: 40% !important;
+  height: 25px !important;
 }
 
 .finalUploadButtonContainer {

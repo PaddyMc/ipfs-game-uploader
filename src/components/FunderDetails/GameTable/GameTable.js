@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './GameTable.css';
 import Web3 from 'web3';
 
-class GameTable extends Component {
-  render() {
-    const {
-      header,
-      tableHeader,
-      sortedGameFundedData
-    } = this.props
-    
-    return (
-      <div>
-        <p>{header}</p>
-        <Table className="tableSize">
+const GameTable = props => {
+  const {
+    header,
+    tableHeader,
+    sortedGameFundedData
+  } = props
+  
+  return (
+    <div>
+      <h4>{header}</h4>
+      <Table striped bordered>
         <thead >
           <tr>
             <th className="halfSize">{tableHeader}</th>
@@ -25,7 +24,8 @@ class GameTable extends Component {
         <tbody className="">
         {
           sortedGameFundedData.map((gameData, index) => {
-            let output = 
+            if(index < 10) {
+              let output = 
               <tr key={index}>
                 <td>
                   <Link to={ { pathname: `/game/${gameData.gameHash}` } }>
@@ -36,15 +36,16 @@ class GameTable extends Component {
                       (Web3.utils.fromWei(gameData.gameFundedData , "ether")) : null
                 } Eth </td>
               </tr> 
-            return output
+              return output
+            }
+            return null
           })
         }
         </tbody>
-        </Table> 
-        <hr /> 
-      </div>
-    );
-  }
+      </Table> 
+      <hr /> 
+    </div>
+  );
 }
 
 export default GameTable;

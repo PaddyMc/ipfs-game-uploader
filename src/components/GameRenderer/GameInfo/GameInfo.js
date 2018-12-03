@@ -1,6 +1,5 @@
 import React from 'react';
 import Web3 from 'web3'
-
 import './GameInfo.css';
 
 const GameInfo = props => {
@@ -11,8 +10,8 @@ const GameInfo = props => {
     } = props
     
     return (
-      <div>
-        <div className="gameloader-container">
+      <div className="spacing">
+        <div className="gameloader-container ">
             <div className="gameloader-infoText">Game Owner:</div>
             <div>{gameOwner}</div>
         </div>
@@ -21,7 +20,7 @@ const GameInfo = props => {
             <div>{description}</div>
         </div>
         <div className="gameloader-container">
-            <div className="gameloader-infoText">Total Amount Funded:</div>
+            <div className="gameloader-infoText">Funded:</div>
             <div>{Web3.utils.fromWei(gameFundingData.toString() , "ether")} Eth</div>
         </div>
       </div>
