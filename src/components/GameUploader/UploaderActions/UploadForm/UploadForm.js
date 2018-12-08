@@ -12,7 +12,6 @@ let UploadForm = props => {
     numberOfFiles
   } = props
 
-  console.log(numberOfFiles)
   return (
     <div className="allInputsContainer">
       <Field 

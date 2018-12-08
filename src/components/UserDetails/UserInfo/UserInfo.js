@@ -1,4 +1,5 @@
 import React from 'react';
+import EthIcon from '../../EthIcon/EthIcon'
 import './UserInfo.css';
 
 const UserInfo = props => {
@@ -22,7 +23,9 @@ const UserInfo = props => {
           Total Amount Funded:
         </div>
         <div>
-          {fundingData} Eth
+          <EthIcon 
+            amount={fundingData}
+          />
         </div>
       </div>
     </div>
