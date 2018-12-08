@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import EthIcon from '../../EthIcon/EthIcon'
 import './GameTable.css';
 import Web3 from 'web3';
 
@@ -32,9 +33,16 @@ const GameTable = props => {
                     {gameData.gameHash}
                   </Link>
                 </td>
-                <td> { (gameData.gameFundedData) ?
-                      (Web3.utils.fromWei(gameData.gameFundedData , "ether")) : null
-                } Eth </td>
+                <td> 
+                  { 
+                    (gameData.gameFundedData) ?
+                        (
+                          <EthIcon
+                            amount={Web3.utils.fromWei(gameData.gameFundedData , "ether")}
+                          />
+                        ) : null
+                  }
+                </td>
               </tr> 
               return output
             }

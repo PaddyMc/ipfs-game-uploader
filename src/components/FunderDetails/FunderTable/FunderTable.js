@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import EthIcon from '../../EthIcon/EthIcon'
 import './FunderTable.css';
 import Web3 from 'web3';
 
@@ -27,9 +28,16 @@ const FunderTable = props => {
               let output = 
               <tr key={index}>
                 <td>{funder[0]}</td>
-                <td> { (funder[1]) ?
-                      (Web3.utils.fromWei(funder[1] , "ether")) : null
-                } Eth </td>
+                <td> 
+                  { 
+                    (funder[1]) ?
+                        (
+                          <EthIcon
+                            amount={Web3.utils.fromWei(funder[1] , "ether")}
+                          />
+                        ) : null
+                  }
+                </td>
               </tr> 
               return output
             }

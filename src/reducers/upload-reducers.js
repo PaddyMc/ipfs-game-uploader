@@ -81,8 +81,9 @@ const upload = (state, action) => {
         ipfsHash: '',
         ethAddress: '',
         transactionHash: '',
-        blockNumber: 0,
-        gasUsed: 0
+        imageName: "",
+        documentName: "",
+        numberOfFiles: 0,
       })
       return newState
     case 'UPDATE_DOCUMENT_NAME':
