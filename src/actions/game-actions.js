@@ -139,8 +139,10 @@ export const getGameRendererData = (ipfsHash) => async (dispatch, getState) => {
   dispatch(updateGameRendererLoading(false))
 }
 
-export const fundUploader = async (ipfsHash) => {
+export const fundUploader = (ipfsHash) => async (dispatch, getState) => {
+  const funderForm = getState().form.fund
   const [account] = await web3.eth.getAccounts();
+
   var eventETHDeposited = gametracker.events.UpdatedBalance({from: account});
   eventETHDeposited.subscribe((err, result) => { 
     if (err) {
@@ -151,19 +153,10 @@ export const fundUploader = async (ipfsHash) => {
 
   gametracker.methods.fundGameOwner(ipfsHash).send({
     from: account,
-    value: web3.utils.toWei('0.2', "ether")
+    value: web3.utils.toWei(funderForm.values.fund, "ether")
   }, (err, data) => {
     //console.log(data)
   });
-
-  // var event = gametracker.events.UpdatedBalance({from: loadedAccounts});
-  // event.subscribe((err, result) => { 
-  //     if (err) {
-  //         console.log(err)
-  //         return;
-  //     }
-  //     console.log(result)
-  // });
 }
 
 export const sendRequestToBuy = async (ownerAddress) => {
@@ -207,5 +200,15 @@ export const changeIPFSLocation = (event) => (dispatch) => {
     default:
       break
   }
+}
+
+export const validateFund = values => {
+  const errors = {}
+  if (!values.fund) {
+    errors.fund = ''
+  } else if (!/\d+(?:\.\d{1,2})?$/.test(values.fund)) {
+    errors.fund = "Please enter a number"
+  }
+  return errors
 }
 

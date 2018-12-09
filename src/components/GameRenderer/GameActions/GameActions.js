@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import CustomPopUp from '../../PopUp/PopUp'
 import GameInformationPopUp from '../../GameLoader/GameDetails/GameInformationPopUp/GameInformationPopUp'
+import FunderForm from './FunderForm/FunderForm'
 import './GameActions.css';
 
 const GameActions = props => {
@@ -18,28 +19,26 @@ const GameActions = props => {
     <div>
       <CustomPopUp 
         buttonText = {"Game Information"}
-        gameHash = {ipfsHash}
         info = {`${url}${ipfsHash}/introDocument.md`}
         Content = {GameInformationPopUp}
       />
     </div>
     <div className="">
-      <Button 
-        className="button"
-        onClick={() => {
-          fundUploader(ipfsHash)
-        }}> 
-          Fund Game Uploader
-      </Button>
+      <CustomPopUp 
+        buttonText = {"Fund Uploader"}
+        otherInfo = {ipfsHash}
+        info = {fundUploader}
+        Content = {FunderForm}
+      />
     </div>
     <div>
-      <Button 
+      {/* <Button 
         className="button"
         onClick={() => {
           sendRequestToBuy(gameOwner)
         }}>
           Request To Buy
-      </Button>
+      </Button> */}
     </div>
     </div>
   );

@@ -6,7 +6,8 @@ import { getGameData,
          fundUploader,
          sendRequestToBuy,
          getGameRendererData,
-         changeIPFSLocation
+         changeIPFSLocation,
+         validateFund,
        } from './game-actions'
 
 import { getAllHashes, 
@@ -32,6 +33,7 @@ export {
   getGameRendererData,
   fundUploader,
   sendRequestToBuy,
+  validateFund,
   
   // Upload Functions
   getAllHashes,

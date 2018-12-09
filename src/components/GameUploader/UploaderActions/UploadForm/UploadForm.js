@@ -1,6 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { validate } from '../../../../actions/actions'
+import { renderField } from './RenderField/RenderField'
 import'../UploaderActions.css';
 
 let UploadForm = props => {
@@ -59,20 +60,6 @@ let UploadForm = props => {
     </div>
   )
 }
-
-const renderField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning }
-}) => (
-    <div className="inputContainer">
-      <input className="input"  {...input} placeholder={label} type={type} />
-      {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
-    </div>
-)
 
 const renderFile = ({
   label,
