@@ -13,6 +13,7 @@ const CustomPopUp = props => {
   const {
     buttonText,
     info,
+    otherInfo,
     Content
   } = props
   
@@ -27,6 +28,7 @@ const CustomPopUp = props => {
         <div className="header"> {buttonText} </div>
         <hr />
         <Content
+          otherInfo={otherInfo}
           info={info}
         />
         <div className="actions">
