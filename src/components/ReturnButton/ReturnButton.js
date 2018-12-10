@@ -3,9 +3,13 @@ import './ReturnButton.css';
 
 class ReturnButton extends Component {
   render() {
+    const {
+      children
+    } = this.props
+    
     return (
       <div>
-        <div className="returnbutton" onClick={() => this.props.children.history.goBack()}>
+        <div className="returnbutton" onClick={() => children.history.goBack()}>
           ←
         </div>
       </div>

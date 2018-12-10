@@ -106,7 +106,6 @@ const validateFiles = (files) => {
 
 const getFolderPath = (folderPath) => {
   if(folderPath === "") {
-    console.log(new Date().getTime())
     return new Date().getTime()
   } else {
     return folderPath
@@ -147,7 +146,6 @@ export const captureFile = (event, object) => async (dispatch, getState) => {
   }
 
   if(object === "folder") {
-    console.log(fileCount)
     dispatch(updateFiles(files, fileCount))
   } else if(object === "image") {
     dispatch(updateImage(files))

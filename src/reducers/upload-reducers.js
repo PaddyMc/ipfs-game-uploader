@@ -84,6 +84,7 @@ const upload = (state, action) => {
         imageName: "",
         documentName: "",
         numberOfFiles: 0,
+        blockNumber: 0,
       })
       return newState
     case 'UPDATE_DOCUMENT_NAME':

@@ -1,5 +1,4 @@
 import { Types } from '@requestnetwork/request-network.js';
-
 import web3 from '../services/contract-utils/web3';
 import gametracker from '../services/contract-utils/gametracker';
 import requestNetwork from '../services/requestnetwork';
@@ -45,6 +44,16 @@ const updateGameFundingData = (sortedGameFundedData) => ({
   sortedGameFundedData
 })
 
+const updatePageNumber = (pageNumber) => ({
+  type: 'UPDATE_PAGE_NUMBER',
+  pageNumber
+})
+
+const updateNumberOfPages = (numberOfPages) => ({
+  type: 'UPDATE_NUMBER_OF_PAGES',
+  numberOfPages
+})
+
 const getFileUploaded = async (ipfsHash, ipfs) => {
   return ipfs.get(ipfsHash)
 } 
@@ -61,10 +70,10 @@ const getTotalHashes = async () => {
   })
 }
 
-const getAllInfoByPosition = async (numberOfGames) => {
+const getAllInfoByPosition = async (startNumber, numberOfGames) => {
   const [account] = await web3.eth.getAccounts();
   let promises = []
-  for(let i = 0; i < numberOfGames; i++){
+  for(let i = startNumber; i < numberOfGames; i++){
     promises.push(gametracker.methods.getHashByNum(i).call({
       from: account
     }))
@@ -82,11 +91,10 @@ const sortAllGames = (newAllGames) => {
   return newAllGames
 }
 
-export const getGameData = () => async (dispatch, getState) => {
-  const ipfsURL = getState().game.gameRenderer.url
+const getGameDataFromXToY = async (start, end, gameState) => {
+  const ipfsURL = gameState.gameRenderer.url
   const ipfs = selectIPFSLocation(ipfsURL)
-  const numberOfGames = await getTotalHashes()
-  const getAllInfoByPositionData = await getAllInfoByPosition(numberOfGames)
+  const getAllInfoByPositionData = await getAllInfoByPosition(start, end)
   let allGames = []
   for(let i = 2; i < getAllInfoByPositionData.length + 1; i++){
     if(i % 2 === 0) {
@@ -109,12 +117,58 @@ export const getGameData = () => async (dispatch, getState) => {
       })
     }
   }
-  dispatch(updateAllGameData(numberOfGames, allGames))
+  return allGames
+}
 
-  var newAllGames = allGames.slice()
-  newAllGames = sortAllGames(newAllGames)
-  dispatch(updateGameFundingData(newAllGames))
+export const getGameData = () => async (dispatch, getState) => {
+  dispatch(updateLoaded(false))
+  const gameState = getState().game
+  const pageSize = gameState.pageSize
+  const pageNumber = gameState.pageNumber
+  const numberOfLastGameOnPage = pageSize*pageNumber
+  
+  const numberOfGames = await getTotalHashes()
+  dispatch(updateNumberOfPages(Math.ceil(numberOfGames/pageSize)))
+  let gameNumber;
+
+  if(numberOfLastGameOnPage > numberOfGames) {
+    gameNumber = numberOfGames
+  } else {
+    gameNumber = numberOfLastGameOnPage
+  }
+
+  const games = await getGameDataFromXToY(numberOfLastGameOnPage-pageSize, gameNumber, gameState)
+  dispatch(updateAllGameData(numberOfGames, games))
   dispatch(updateLoaded(true))
+
+  // link with search function
+  // var newAllGames = allGames.slice()
+  // newAllGames = sortAllGames(newAllGames)
+  // dispatch(updateGameFundingData(newAllGames))
+}
+
+export const changeGamePage = (nextPage) => (dispatch, getState) => {
+  const gameState = getState().game
+  const numberOfGames = gameState.numberOfGames
+  const pageSize = gameState.pageSize
+  let pageNumber = gameState.pageNumber
+  if(nextPage) {
+    if(pageSize * (pageNumber+1) < Number(numberOfGames) + Number(pageSize)) {
+      pageNumber++
+      dispatch(updatePageNumber(pageNumber))
+      dispatch(getGameData())
+    } else {
+      //alert("No thanks")
+    }
+  } else {
+    if(pageNumber > 1) {
+      pageNumber--
+      dispatch(updatePageNumber(pageNumber))
+      dispatch(getGameData())
+    } else {
+      //alert("No thanks")
+    }
+  }
 }
 
 export const hideGameLoader = (visibility) => (dispatch) => {

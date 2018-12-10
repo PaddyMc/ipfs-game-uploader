@@ -8,6 +8,7 @@ import { getGameData,
          getGameRendererData,
          changeIPFSLocation,
          validateFund,
+         changeGamePage
        } from './game-actions'
 
 import { getAllHashes, 
@@ -28,6 +29,7 @@ export {
   getGameData,
   hideGameLoader,
   changeIPFSLocation,
+  changeGamePage,
 
   // Game Renderer Functions
   getGameRendererData,

@@ -1,0 +1,13 @@
+.arrow-button-container {
+  display: flex;
+  margin: auto;
+  align-items: center;
+}
+
+.arrow-button {
+  margin: auto;
+}
+
+/* .page-x-of-y-text {
+  position: absolute;
+} */
