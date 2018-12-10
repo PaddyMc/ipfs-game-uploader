@@ -19,6 +19,9 @@ const game = (state, action) => {
     },
     gameRendererLoading: true,
     sortedGameFundedData: [],
+    pageSize: 10,
+    pageNumber: 1,
+    numberOfPages: 1,
   }, state)
 
   switch (action.type) {
@@ -70,6 +73,16 @@ const game = (state, action) => {
           url: action.url,
           index: "index.html",
         }
+      })
+      return newState
+    case 'UPDATE_PAGE_NUMBER':
+      newState = extend(gameState, {
+        pageNumber: action.pageNumber
+      })
+      return newState
+    case 'UPDATE_NUMBER_OF_PAGES':
+      newState = extend(gameState, {
+        numberOfPages: action.numberOfPages
       })
       return newState
     default:

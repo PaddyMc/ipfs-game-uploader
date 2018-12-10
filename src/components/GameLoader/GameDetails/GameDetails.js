@@ -42,7 +42,6 @@ const GameDetails = props => {
                 <div className="center-button">
                   <CustomPopUp 
                     buttonText = {"Game Information"}
-                    gameHash = {game.gameHash}
                     info = {`${url}${game.gameHash}/introDocument.md`}
                     Content = {GameInformationPopUp}
                   />

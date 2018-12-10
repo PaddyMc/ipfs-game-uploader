@@ -17,6 +17,8 @@ class Game extends Component {
     allGames: PropTypes.array,
     loaded: PropTypes.bool,
     url: PropTypes.string,
+    // pageNumber: PropTypes.Number,
+    // numberOfPages: PropTypes.Number,
     updateGameData: PropTypes.func,
     hideGameLoader: PropTypes.func,
     getAmountFunded: PropTypes.func,
@@ -36,8 +38,11 @@ class Game extends Component {
       allGames,
       loaded,
       url,
+      pageNumber,
+      numberOfPages,
       hideGameLoader,
       getAmountFunded,
+      changeGamePage,
     } = this.props
 
     return (
@@ -55,15 +60,15 @@ class Game extends Component {
                 numberOfGames={numberOfGames}
                 allGames={allGames}
                 url = {url}
-
+                loaded = {loaded}
+                changeGamePage = {changeGamePage}
+                pageNumber = {pageNumber}
+                numberOfPages = {numberOfPages}
                 //Renderer
-                hideGameLoader={hideGameLoader}
-                getAmountFunded={getAmountFunded}
+                hideGameLoader = {hideGameLoader}
+                getAmountFunded = {getAmountFunded}
               /> 
             )
-        }
-        {
-          loaded || (<div>Loading....</div>)
         }
       </div>
     );

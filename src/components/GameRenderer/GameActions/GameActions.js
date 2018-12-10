@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import CustomPopUp from '../../PopUp/PopUp'
 import GameInformationPopUp from '../../GameLoader/GameDetails/GameInformationPopUp/GameInformationPopUp'
 import FunderForm from './FunderForm/FunderForm'
@@ -8,9 +7,9 @@ import './GameActions.css';
 const GameActions = props => {
   const {
     ipfsHash,
-    gameOwner,
+    // gameOwner,
     fundUploader,
-    sendRequestToBuy,
+    // sendRequestToBuy,
     url
   } = props
 

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { getGameData,
          hideGameLoader,
+         changeGamePage
        } from '../../actions/actions'
 
 import Game from './Game.component'
@@ -13,7 +14,9 @@ const mapStateToProps = (state) => {
     numberOfGames,
     allGames,
     loaded,
-    gameRenderer
+    gameRenderer,
+    pageNumber,
+    numberOfPages,
   } = state.game
 
   const url = gameRenderer.url
@@ -26,6 +29,8 @@ const mapStateToProps = (state) => {
     allGames,
     loaded,
     url,
+    pageNumber,
+    numberOfPages,
   }
 }
 
@@ -33,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateGameData: () => dispatch(getGameData()),
     hideGameLoader: (visibility) => dispatch(hideGameLoader(visibility)),
+    changeGamePage: (incrementPage) => dispatch(changeGamePage(incrementPage))
   }
 }
 
